@@ -1,0 +1,32 @@
+name: ci
+on:
+  pull_request:
+    paths:
+      - '**.py'
+      - '.github/workflows/ci.yml'
+      - 'uv.lock'
+  push:
+    branches: [main]
+    paths:
+      - '**.py'
+      - '.github/workflows/ci.yml'
+      - 'uv.lock'
+  workflow_dispatch:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+      - name: setup uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          activate-environment: true
+          enable-cache: true
+          python-version: 3.14
+      - name: install dependencies
+        run: uv sync --frozen
+      - name: check with ruff
+        run: ruff check
+      - name: check with ty
+        run: ty check
