@@ -8,3 +8,15 @@ dependencies = ["polars", "tea_tasting", "tqdm"]
 
 [dependency-groups]
 dev = ["ruff", "ty"]
+
+[tool.ruff.lint]
+extend-select = [
+    "A", "ANN", "ARG", "B", "C4", "C90", "COM", "E", "F", "ERA", "FA", "FLY", "FURB",
+    "I", "ICN", "INP", "INT", "ISC", "N", "NPY", "PERF", "PGH", "PIE", "PL", "Q", "RET",
+    "RSE", "RUF", "S", "SIM", "SLF", "T20", "TC", "TID", "TRY", "UP", "W",
+]
+ignore = ["PLR0913"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+lines-after-imports = 2
