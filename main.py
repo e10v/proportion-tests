@@ -4,7 +4,6 @@ import argparse
 import concurrent.futures
 import functools
 import tomllib
-from typing import TYPE_CHECKING
 
 import numpy as np
 import polars as pl
@@ -13,12 +12,8 @@ import tea_tasting as tt
 import tqdm
 
 
-if TYPE_CHECKING:
-    from typing import TextIO
-
-
-MAX_EXACT_OBS = 100
 MAX_PROP = 0.9
+MAX_EXACT_OBS = 100
 
 EXACT = {
     "barnard": tt.Proportion("value", method="barnard", equal_var=False),
@@ -27,7 +22,7 @@ EXACT = {
     "fisher": tt.Proportion("value", method="fisher"),
 }
 
-APPROX = {
+ASYMPTOTIC = {
     "log-likelihood": tt.Proportion("value", method="log-likelihood", correction=False),
     "log-likelihood cc": tt.Proportion(
         "value", method="log-likelihood", correction=True),
@@ -47,94 +42,60 @@ APPROX = {
 
 
 def main(
-    *,
     output: str,
     seed: int,
+    *,
     n_simulations: int,
     n_obs_small: int,
     n_obs_large: int,
     unbalanced_ratio: float,
     unbalanced_prop: float,
 ) -> None:
-    file = open(output, mode="w")  # noqa: SIM115
-    file.write("# Comparison of two-sample proportion tests\n")
-
-    file.write("\n## Small sample\n")
-    n_obs = n_obs_small
-    run_aa_and_power_tests(
-        "Balanced ratio, balanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
+    write_text(
+        output,
+        "# Comparison of two-sample proportion tests",
+        mode="w",
+        br_before=False,
     )
-    run_aa_and_power_tests(
-        "Balanced ratio, unbalanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        prop=unbalanced_prop,
-    )
-    run_aa_and_power_tests(
-        "Unbalanced ratio, balanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        ratio=unbalanced_ratio,
-    )
-    run_aa_and_power_tests(
-        "Unbalanced ratio, unbalanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        ratio=unbalanced_ratio,
-        prop=unbalanced_prop,
-    )
-
-    file.write("\n## Large sample\n")
-    n_obs = n_obs_large
-    run_aa_and_power_tests(
-        "Balanced ratio, balanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-    )
-    run_aa_and_power_tests(
-        "Balanced ratio, unbalanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        prop=unbalanced_prop,
-    )
-    run_aa_and_power_tests(
-        "Unbalanced ratio, balanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        ratio=unbalanced_ratio,
-    )
-    run_aa_and_power_tests(
-        "Unbalanced ratio, unbalanced proportion",
-        file,
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        ratio=unbalanced_ratio,
-        prop=unbalanced_prop,
-    )
-
-    file.close()
+    for size, n_obs in (("Small", n_obs_small), ("Large", n_obs_large)):
+        write_text(output, f"## {size} sample")
+        run_aa_and_power_tests(
+            output,
+            "### Balanced ratio, balanced proportion",
+            seed=seed,
+            n_simulations=n_simulations,
+            n_obs=n_obs,
+        )
+        run_aa_and_power_tests(
+            output,
+            "### Balanced ratio, unbalanced proportion",
+            seed=seed,
+            n_simulations=n_simulations,
+            n_obs=n_obs,
+            prop=unbalanced_prop,
+        )
+        run_aa_and_power_tests(
+            output,
+            "### Unbalanced ratio, balanced proportion",
+            seed=seed,
+            n_simulations=n_simulations,
+            n_obs=n_obs,
+            ratio=unbalanced_ratio,
+        )
+        run_aa_and_power_tests(
+            output,
+            "### Unbalanced ratio, unbalanced proportion",
+            seed=seed,
+            n_simulations=n_simulations,
+            n_obs=n_obs,
+            ratio=unbalanced_ratio,
+            prop=unbalanced_prop,
+        )
 
 
 def run_aa_and_power_tests(
+    output: str,
     header: str,
-    file: TextIO,
     *,
     seed: int,
     n_simulations: int,
@@ -142,48 +103,22 @@ def run_aa_and_power_tests(
     ratio: float = 1,
     prop: float = 0.5,
 ) -> None:
-    file.write(f"\n### {header}\n")
-
-    file.write("\nAA tests\n")
-    aa_params, aa_results = run_tests(
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        ratio=ratio,
-        prop=prop,
-        aa_tests=True,
-    )
-    with pl.Config(
-        tbl_formatting="MARKDOWN",
-        tbl_hide_column_data_types=True,
-        tbl_hide_dataframe_shape=True,
-        tbl_rows=-1,
-    ):
-        file.write("\n" + str(aa_params) + "\n")
-        file.write("\n" + str(aa_results) + "\n")
-
-    file.write("\nPower tests\n")
-    power_params, power_results = run_tests(
-        seed=seed,
-        n_simulations=n_simulations,
-        n_obs=n_obs,
-        ratio=ratio,
-        prop=prop,
-        aa_tests=False,
-    )
-    with pl.Config(
-        tbl_formatting="MARKDOWN",
-        tbl_hide_column_data_types=True,
-        tbl_hide_dataframe_shape=True,
-        tbl_rows=-1,
-    ):
-        file.write("\n" + str(power_params) + "\n")
-        file.write("\n" + str(power_results) + "\n")
+    write_text(output, header)
+    for test_type, aa_tests in (("AA", True), ("Power", False)):
+        write_text(output, f"{test_type} tests")
+        write_data(output, *run_tests(
+            seed=seed,
+            n_simulations=n_simulations,
+            n_obs=n_obs,
+            ratio=ratio,
+            prop=prop,
+            aa_tests=aa_tests,
+        ))
 
 
 def run_tests(
-    *,
     seed: int,
+    *,
     n_simulations: int,
     n_obs: int,
     ratio: float = 1,
@@ -206,7 +141,7 @@ def run_tests(
             effect_size = MAX_PROP - prop
         rate_col = "power"
 
-    metrics = APPROX if n_obs > MAX_EXACT_OBS else EXACT | APPROX
+    metrics = ASYMPTOTIC if n_obs > MAX_EXACT_OBS else EXACT | ASYMPTOTIC
     with concurrent.futures.ProcessPoolExecutor() as executor:
         results = tt.Experiment(metrics).simulate(
             functools.partial(
@@ -224,6 +159,7 @@ def run_tests(
 
     params = pl.from_records(
         (
+            ("number of simulations", n_simulations),
             ("number of observations", n_obs),
             ("treatment to control ratio", ratio),
             ("proportion in control", prop),
@@ -245,7 +181,8 @@ def run_tests(
         )
         .sort(
             pl.col("null rejected").truediv(pl.col("not nan")),
-            descending=True,
+            "metric",
+            descending=(True, False),
         )
         .select(
             "metric",
@@ -283,9 +220,35 @@ def calc_ci(k: int, n: int) -> str:
     return f"[{ci_lower:.3f}, {ci_upper:.3f}]"
 
 
+def write_text(
+    output: str,
+    text: str,
+    *,
+    mode: str = "a",
+    br_before: bool=True,
+    br_after: bool=True,
+) -> None:
+    with open(output, mode) as f:
+        if br_before:
+            f.write("\n")
+        f.write(text)
+        if br_after:
+            f.write("\n")
+
+
+def write_data(output: str, *data: pl.DataFrame) -> None:
+    with pl.Config(
+        tbl_formatting="MARKDOWN",
+        tbl_hide_column_data_types=True,
+        tbl_hide_dataframe_shape=True,
+        tbl_rows=-1,
+        fmt_float="full",
+    ):
+        write_text(output, "\n\n".join(str(df).replace("|--", "|:-") for df in data))
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-
     parser.add_argument(
         "-c",
         "--config",
@@ -295,8 +258,6 @@ if __name__ == "__main__":
         help="Config file",
         required=False,
     )
-
     with open(parser.parse_args().config, "rb") as f:
         config = tomllib.load(f)
-
     main(**config)
