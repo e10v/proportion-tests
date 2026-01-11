@@ -9,7 +9,7 @@ There are many statistical tests that can be used for the analysis of proportion
 
 Besides, analysis of proportions can be considered as analysis of means, if outcomes are represented as values 1 or 0. In this case, two-sample [Student's t-test](https://en.wikipedia.org/wiki/Student%27s_t-test) and [Z-test](https://en.wikipedia.org/wiki/Z-test) of means can be used for the analysis of proportions as well.
 
-We are interested in choosing a test with the highest statistical power while keeping the type I error rate at a desired level (for example, 0.05).
+We are interested in choosing a test with the highest [statistical power](https://en.wikipedia.org/wiki/Power_(statistics)) while keeping the [type I error](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors) rate at a desired level (for example, 0.05).
 
 Factors to take into account:
 
@@ -19,7 +19,7 @@ Factors to take into account:
 
 ## Simulations
 
-The code in this repository simulates multiple experiments, estimates both type I error rate and statistical power, and saves the results.
+The code (main.py) in this repository simulates multiple experiments, estimates both type I error rate and statistical power, and saves the results.
 
 The simulations are performed for each combination of factors:
 
@@ -32,7 +32,7 @@ Two types of simulations are performed for each combination of parameters:
 - AA tests: without true difference between the proportions of two groups.
 - Power tests: with true difference between the proportions of two groups.
 
-The results are saved in a file named "results.md".
+The results are saved in a file (results.md).
 
 ## How to reproduce the results
 
