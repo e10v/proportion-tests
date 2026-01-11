@@ -1,7 +1,20 @@
+# Output file
 output = "results.md"
+
+# Random seed
 seed = 42
+
+# Number of simulations
 n_simulations = 10000
+
+# Small number of observations 
 n_obs_small = 100
+
+# Large number of observations 
 n_obs_large = 1000
+
+# Unbalanced treatment to control ratio of the number of observations
 unbalanced_ratio = 0.25
+
+# Unbalanced proportion
 unbalanced_prop = 0.1
