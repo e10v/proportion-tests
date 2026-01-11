@@ -137,7 +137,7 @@ def run_tests(
                     .effect_size,
                 MAX_PROP - prop,
             )
-        except:  # noqa: E722
+        except Exception:
             effect_size = MAX_PROP - prop
         rate_col = "power"
 
