@@ -13,16 +13,16 @@ import tqdm
 
 
 MAX_PROP = 0.9
-MAX_EXACT_OBS = 100
+MAX_SLOW_OBS = 100
 
-EXACT = {
+SLOW = {
     "barnard": tt.Proportion("value", method="barnard", equal_var=False),
     "barnard pooled": tt.Proportion("value", method="barnard", equal_var=True),
     "boschloo": tt.Proportion("value", method="boschloo"),
-    "fisher": tt.Proportion("value", method="fisher"),
 }
 
-ASYMPTOTIC = {
+FAST = {
+    "fisher": tt.Proportion("value", method="fisher"),
     "log-likelihood": tt.Proportion("value", method="log-likelihood", correction=False),
     "log-likelihood cc": tt.Proportion(
         "value", method="log-likelihood", correction=True),
@@ -141,7 +141,7 @@ def run_tests(
             effect_size = MAX_PROP - prop
         rate_col = "power"
 
-    metrics = ASYMPTOTIC if n_obs > MAX_EXACT_OBS else EXACT | ASYMPTOTIC
+    metrics = FAST if n_obs > MAX_SLOW_OBS else SLOW | FAST
     with concurrent.futures.ProcessPoolExecutor() as executor:
         results = tt.Experiment(metrics).simulate(
             functools.partial(

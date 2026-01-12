@@ -275,6 +275,7 @@ AA tests
 | mean t-test pooled | 0.054        | [0.049, 0.058]  |
 | norm pooled        | 0.054        | [0.049, 0.058]  |
 | pearson            | 0.054        | [0.049, 0.058]  |
+| fisher             | 0.051        | [0.046, 0.055]  |
 | norm cc            | 0.046        | [0.042, 0.051]  |
 | log-likelihood cc  | 0.046        | [0.042, 0.050]  |
 | norm pooled cc     | 0.046        | [0.042, 0.050]  |
@@ -301,6 +302,7 @@ Power tests
 | pearson            | 0.805 | [0.797, 0.812] |
 | mean t-test pooled | 0.804 | [0.796, 0.812] |
 | mean t-test        | 0.804 | [0.796, 0.812] |
+| fisher             | 0.800 | [0.792, 0.808] |
 | norm cc            | 0.786 | [0.778, 0.794] |
 | log-likelihood cc  | 0.785 | [0.776, 0.793] |
 | norm pooled cc     | 0.785 | [0.776, 0.793] |
@@ -329,6 +331,7 @@ AA tests
 | norm pooled        | 0.052        | [0.048, 0.056]  |
 | pearson            | 0.052        | [0.048, 0.056]  |
 | mean t-test        | 0.052        | [0.047, 0.056]  |
+| fisher             | 0.045        | [0.041, 0.049]  |
 | log-likelihood cc  | 0.039        | [0.036, 0.043]  |
 | norm cc            | 0.039        | [0.036, 0.043]  |
 | norm pooled cc     | 0.039        | [0.035, 0.043]  |
@@ -355,6 +358,7 @@ Power tests
 | pearson            | 0.749 | [0.740, 0.757] |
 | mean t-test        | 0.749 | [0.740, 0.757] |
 | mean t-test pooled | 0.749 | [0.740, 0.757] |
+| fisher             | 0.733 | [0.724, 0.742] |
 | norm cc            | 0.720 | [0.711, 0.729] |
 | log-likelihood cc  | 0.719 | [0.710, 0.728] |
 | norm pooled cc     | 0.718 | [0.709, 0.727] |
@@ -383,6 +387,7 @@ AA tests
 | mean t-test pooled | 0.046        | [0.042, 0.050]  |
 | norm pooled        | 0.046        | [0.042, 0.050]  |
 | pearson            | 0.046        | [0.042, 0.050]  |
+| fisher             | 0.042        | [0.038, 0.046]  |
 | norm cc            | 0.039        | [0.035, 0.043]  |
 | log-likelihood cc  | 0.038        | [0.034, 0.042]  |
 | norm pooled cc     | 0.037        | [0.034, 0.041]  |
@@ -409,6 +414,7 @@ Power tests
 | norm pooled        | 0.806 | [0.798, 0.814] |
 | pearson            | 0.806 | [0.798, 0.814] |
 | mean t-test pooled | 0.806 | [0.798, 0.814] |
+| fisher             | 0.794 | [0.786, 0.801] |
 | norm cc            | 0.790 | [0.781, 0.798] |
 | log-likelihood cc  | 0.784 | [0.775, 0.792] |
 | norm pooled cc     | 0.781 | [0.773, 0.789] |
@@ -437,6 +443,7 @@ AA tests
 | mean t-test pooled | 0.053        | [0.049, 0.058]  |
 | norm pooled        | 0.053        | [0.049, 0.058]  |
 | pearson            | 0.053        | [0.049, 0.058]  |
+| fisher             | 0.045        | [0.042, 0.050]  |
 | norm cc            | 0.044        | [0.040, 0.048]  |
 | log-likelihood cc  | 0.040        | [0.036, 0.044]  |
 | norm pooled cc     | 0.038        | [0.035, 0.043]  |
@@ -460,6 +467,7 @@ Power tests
 | pearson            | 0.763 | [0.755, 0.772] |
 | mean t-test pooled | 0.763 | [0.754, 0.771] |
 | log-likelihood     | 0.745 | [0.736, 0.753] |
+| fisher             | 0.740 | [0.731, 0.748] |
 | norm pooled cc     | 0.724 | [0.715, 0.733] |
 | pearson cc         | 0.724 | [0.715, 0.733] |
 | log-likelihood cc  | 0.701 | [0.692, 0.710] |
