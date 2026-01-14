@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import functools
+import math
 import tomllib
 
 import numpy as np
@@ -11,6 +12,11 @@ import scipy.stats
 import tea_tasting as tt
 import tqdm
 
+
+ALPHA = 0.05
+POWER = 0.8
+MAX_EFFECT_SIZE_DEV = 0.05
+MAX_EFFECT_SIZE_ITER = 10
 
 MAX_PROP = 0.9
 MAX_SLOW_OBS = 100
@@ -129,16 +135,10 @@ def run_tests(
         effect_size = 0
         rate_col = "type I error"
     else:
-        data = make_data(seed, n_obs=n_obs, prop=prop)
-        try:
-            effect_size = min(
-                tt.Mean("value", ratio=ratio)
-                    .solve_power(data, "effect_size")[0]
-                    .effect_size,
-                MAX_PROP - prop,
-            )
-        except Exception:
-            effect_size = MAX_PROP - prop
+        effect_size = min(
+            calc_effect_size(n_obs=n_obs, ratio=ratio, prop=prop),
+            MAX_PROP - prop,
+        )
         rate_col = "power"
 
     metrics = FAST if n_obs > MAX_SLOW_OBS else SLOW | FAST
@@ -175,8 +175,7 @@ def run_tests(
         .filter(pl.col("pvalue").is_not_nan())
         .group_by("metric")
         .agg(
-            pl.col("pvalue").le(tt.get_config("alpha"))
-                .cast(int).sum().alias("null rejected"),
+            pl.col("pvalue").le(ALPHA).cast(int).sum().alias("null rejected"),
             pl.col("pvalue").count().alias("not nan"),
         )
         .sort(
@@ -205,14 +204,51 @@ def make_data(
     seed: int | np.random.Generator,
     *,
     n_obs: int,
-    ratio: float = 1,
-    prop: float = 0.5,
-    effect_size: float = 0,
+    ratio: float,
+    prop: float,
+    effect_size: float,
 ) -> pl.DataFrame:
     rng = np.random.default_rng(seed=seed)
     variant = rng.binomial(n=1, p=ratio / (1 + ratio), size=n_obs)
     value = rng.binomial(n=1, p=prop + effect_size*variant, size=n_obs)
     return pl.DataFrame({"variant": variant, "value": value})
+
+
+def calc_effect_size(
+    n_obs: int,
+    ratio: float,
+    prop: float,
+    prev_effect_size: float = 0,
+    n_iter: int = 1,
+    z_stat: float = scipy.stats.norm.isf(ALPHA / 2) + scipy.stats.norm.ppf(POWER),
+) -> float:
+    effect_size = z_stat * calc_scale(
+        n_obs=n_obs,
+        ratio=ratio,
+        prop=prop,
+        effect_size=prev_effect_size,
+    )
+
+    if (
+        n_iter >= MAX_EFFECT_SIZE_ITER or
+        abs(prev_effect_size/effect_size - 1) < MAX_EFFECT_SIZE_DEV
+    ):
+        return effect_size
+
+    return calc_effect_size(
+        n_obs=n_obs,
+        ratio=ratio,
+        prop=prop,
+        prev_effect_size=effect_size,
+        n_iter=n_iter + 1,
+    )
+
+
+def calc_scale(prop: float, n_obs: int, ratio: float, effect_size: float = 0) -> float:
+    n_contr = n_obs / (1 + ratio)
+    n_treat = n_obs * ratio / (1 + ratio)
+    p = (prop * n_contr + (prop + effect_size) * n_treat) / n_obs
+    return math.sqrt(p * (1 - p) * (1/n_contr + 1/n_treat))
 
 
 def calc_ci(k: int, n: int) -> str:
