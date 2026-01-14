@@ -42,27 +42,27 @@ Power tests
 | number of observations     | 100   |
 | treatment to control ratio | 1     |
 | proportion in control      | 0.5   |
-| effect size                | 0.284 |
-| relative effect size       | 0.57  |
+| effect size                | 0.269 |
+| relative effect size       | 0.54  |
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| norm               | 0.858 | [0.850, 0.864] |
-| mean z-test pooled | 0.853 | [0.846, 0.860] |
-| mean z-test        | 0.852 | [0.844, 0.858] |
-| log-likelihood     | 0.851 | [0.844, 0.858] |
-| norm pooled        | 0.851 | [0.844, 0.858] |
-| pearson            | 0.851 | [0.844, 0.858] |
-| mean t-test pooled | 0.849 | [0.842, 0.856] |
-| mean t-test        | 0.846 | [0.839, 0.853] |
-| barnard pooled     | 0.841 | [0.834, 0.848] |
-| boschloo           | 0.837 | [0.830, 0.844] |
-| barnard            | 0.835 | [0.828, 0.842] |
-| fisher             | 0.817 | [0.809, 0.825] |
-| norm cc            | 0.805 | [0.797, 0.812] |
-| log-likelihood cc  | 0.796 | [0.788, 0.804] |
-| norm pooled cc     | 0.793 | [0.784, 0.800] |
-| pearson cc         | 0.793 | [0.784, 0.800] |
+| norm               | 0.814 | [0.807, 0.822] |
+| mean z-test pooled | 0.809 | [0.802, 0.817] |
+| mean z-test        | 0.809 | [0.801, 0.817] |
+| log-likelihood     | 0.807 | [0.800, 0.815] |
+| norm pooled        | 0.807 | [0.799, 0.815] |
+| pearson            | 0.807 | [0.799, 0.815] |
+| mean t-test pooled | 0.805 | [0.797, 0.812] |
+| mean t-test        | 0.803 | [0.795, 0.811] |
+| barnard pooled     | 0.797 | [0.789, 0.805] |
+| boschloo           | 0.793 | [0.785, 0.801] |
+| barnard            | 0.790 | [0.782, 0.798] |
+| fisher             | 0.770 | [0.761, 0.778] |
+| norm cc            | 0.755 | [0.746, 0.763] |
+| log-likelihood cc  | 0.747 | [0.738, 0.755] |
+| norm pooled cc     | 0.743 | [0.734, 0.751] |
+| pearson cc         | 0.743 | [0.734, 0.751] |
 
 ### Balanced ratio, unbalanced proportion
 
@@ -104,27 +104,27 @@ Power tests
 | number of observations     | 100   |
 | treatment to control ratio | 1     |
 | proportion in control      | 0.1   |
-| effect size                | 0.178 |
-| relative effect size       | 1.78  |
+| effect size                | 0.228 |
+| relative effect size       | 2.28  |
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| norm               | 0.657 | [0.647, 0.666] |
-| log-likelihood     | 0.650 | [0.640, 0.659] |
-| mean z-test pooled | 0.649 | [0.639, 0.658] |
-| mean z-test        | 0.647 | [0.637, 0.656] |
-| norm pooled        | 0.644 | [0.634, 0.653] |
-| pearson            | 0.644 | [0.634, 0.653] |
-| mean t-test pooled | 0.641 | [0.632, 0.651] |
-| mean t-test        | 0.637 | [0.627, 0.646] |
-| barnard pooled     | 0.628 | [0.619, 0.638] |
-| barnard            | 0.620 | [0.611, 0.630] |
-| boschloo           | 0.606 | [0.597, 0.616] |
-| fisher             | 0.582 | [0.573, 0.592] |
-| norm cc            | 0.550 | [0.540, 0.560] |
-| log-likelihood cc  | 0.547 | [0.538, 0.557] |
-| norm pooled cc     | 0.534 | [0.525, 0.544] |
-| pearson cc         | 0.534 | [0.525, 0.544] |
+| norm               | 0.828 | [0.821, 0.836] |
+| log-likelihood     | 0.824 | [0.816, 0.831] |
+| mean z-test pooled | 0.823 | [0.815, 0.831] |
+| mean z-test        | 0.821 | [0.813, 0.828] |
+| norm pooled        | 0.820 | [0.812, 0.827] |
+| pearson            | 0.820 | [0.812, 0.827] |
+| mean t-test pooled | 0.818 | [0.810, 0.825] |
+| mean t-test        | 0.815 | [0.807, 0.822] |
+| barnard pooled     | 0.808 | [0.800, 0.815] |
+| barnard            | 0.802 | [0.794, 0.810] |
+| boschloo           | 0.796 | [0.788, 0.804] |
+| fisher             | 0.777 | [0.769, 0.785] |
+| norm cc            | 0.756 | [0.748, 0.765] |
+| log-likelihood cc  | 0.752 | [0.743, 0.761] |
+| norm pooled cc     | 0.743 | [0.734, 0.751] |
+| pearson cc         | 0.743 | [0.734, 0.751] |
 
 ### Unbalanced ratio, balanced proportion
 
@@ -166,27 +166,27 @@ Power tests
 | number of observations     | 100   |
 | treatment to control ratio | 0.25  |
 | proportion in control      | 0.5   |
-| effect size                | 0.364 |
-| relative effect size       | 0.73  |
+| effect size                | 0.347 |
+| relative effect size       | 0.69  |
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| norm               | 0.926 | [0.920, 0.931] |
-| mean z-test        | 0.922 | [0.916, 0.927] |
-| mean t-test        | 0.908 | [0.902, 0.914] |
-| log-likelihood     | 0.899 | [0.893, 0.905] |
-| mean z-test pooled | 0.892 | [0.886, 0.898] |
-| norm pooled        | 0.889 | [0.882, 0.895] |
-| pearson            | 0.889 | [0.882, 0.895] |
-| mean t-test pooled | 0.887 | [0.881, 0.893] |
-| boschloo           | 0.886 | [0.879, 0.892] |
-| norm cc            | 0.882 | [0.876, 0.889] |
-| fisher             | 0.853 | [0.846, 0.860] |
-| barnard pooled     | 0.835 | [0.828, 0.843] |
-| log-likelihood cc  | 0.831 | [0.823, 0.838] |
-| norm pooled cc     | 0.815 | [0.807, 0.823] |
-| pearson cc         | 0.815 | [0.807, 0.823] |
-| barnard            | 0.693 | [0.684, 0.702] |
+| norm               | 0.893 | [0.887, 0.899] |
+| mean z-test        | 0.888 | [0.882, 0.894] |
+| mean t-test        | 0.870 | [0.864, 0.877] |
+| log-likelihood     | 0.860 | [0.852, 0.866] |
+| mean z-test pooled | 0.853 | [0.846, 0.860] |
+| norm pooled        | 0.849 | [0.842, 0.856] |
+| pearson            | 0.849 | [0.842, 0.856] |
+| mean t-test pooled | 0.847 | [0.840, 0.854] |
+| boschloo           | 0.846 | [0.839, 0.853] |
+| norm cc            | 0.840 | [0.833, 0.847] |
+| fisher             | 0.809 | [0.801, 0.816] |
+| barnard pooled     | 0.788 | [0.780, 0.796] |
+| log-likelihood cc  | 0.782 | [0.774, 0.791] |
+| norm pooled cc     | 0.766 | [0.758, 0.774] |
+| pearson cc         | 0.766 | [0.758, 0.774] |
+| barnard            | 0.624 | [0.615, 0.634] |
 
 ### Unbalanced ratio, unbalanced proportion
 
@@ -228,27 +228,27 @@ Power tests
 | number of observations     | 100   |
 | treatment to control ratio | 0.25  |
 | proportion in control      | 0.1   |
-| effect size                | 0.228 |
-| relative effect size       | 2.28  |
+| effect size                | 0.249 |
+| relative effect size       | 2.49  |
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| mean z-test pooled | 0.695 | [0.685, 0.704] |
-| mean t-test pooled | 0.689 | [0.680, 0.698] |
-| norm pooled        | 0.689 | [0.680, 0.698] |
-| pearson            | 0.689 | [0.680, 0.698] |
-| barnard pooled     | 0.647 | [0.637, 0.656] |
-| log-likelihood     | 0.643 | [0.633, 0.652] |
-| fisher             | 0.635 | [0.625, 0.644] |
-| boschloo           | 0.624 | [0.615, 0.634] |
-| norm pooled cc     | 0.585 | [0.575, 0.594] |
-| pearson cc         | 0.585 | [0.575, 0.594] |
-| norm               | 0.536 | [0.527, 0.546] |
-| log-likelihood cc  | 0.529 | [0.519, 0.539] |
-| mean z-test        | 0.518 | [0.508, 0.528] |
-| mean t-test        | 0.466 | [0.456, 0.476] |
-| norm cc            | 0.409 | [0.399, 0.419] |
-| barnard            | 0.152 | [0.145, 0.159] |
+| mean z-test pooled | 0.753 | [0.744, 0.761] |
+| mean t-test pooled | 0.749 | [0.740, 0.757] |
+| norm pooled        | 0.749 | [0.740, 0.757] |
+| pearson            | 0.749 | [0.740, 0.757] |
+| barnard pooled     | 0.707 | [0.698, 0.716] |
+| log-likelihood     | 0.707 | [0.698, 0.716] |
+| fisher             | 0.701 | [0.692, 0.710] |
+| boschloo           | 0.691 | [0.682, 0.700] |
+| norm pooled cc     | 0.649 | [0.640, 0.659] |
+| pearson cc         | 0.649 | [0.640, 0.659] |
+| norm               | 0.606 | [0.596, 0.616] |
+| log-likelihood cc  | 0.598 | [0.589, 0.608] |
+| mean z-test        | 0.589 | [0.579, 0.599] |
+| mean t-test        | 0.538 | [0.529, 0.548] |
+| norm cc            | 0.485 | [0.475, 0.495] |
+| barnard            | 0.196 | [0.188, 0.204] |
 
 ## Large sample
 
@@ -289,24 +289,24 @@ Power tests
 | number of observations     | 1000  |
 | treatment to control ratio | 1     |
 | proportion in control      | 0.5   |
-| effect size                | 0.089 |
+| effect size                | 0.088 |
 | relative effect size       | 0.18  |
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| norm               | 0.806 | [0.798, 0.813] |
-| mean z-test        | 0.805 | [0.797, 0.813] |
-| mean z-test pooled | 0.805 | [0.797, 0.813] |
-| log-likelihood     | 0.805 | [0.797, 0.812] |
-| norm pooled        | 0.805 | [0.797, 0.812] |
-| pearson            | 0.805 | [0.797, 0.812] |
-| mean t-test pooled | 0.804 | [0.796, 0.812] |
-| mean t-test        | 0.804 | [0.796, 0.812] |
-| fisher             | 0.800 | [0.792, 0.808] |
-| norm cc            | 0.786 | [0.778, 0.794] |
-| log-likelihood cc  | 0.785 | [0.776, 0.793] |
-| norm pooled cc     | 0.785 | [0.776, 0.793] |
-| pearson cc         | 0.785 | [0.776, 0.793] |
+| norm               | 0.801 | [0.793, 0.809] |
+| mean z-test        | 0.801 | [0.793, 0.808] |
+| mean z-test pooled | 0.801 | [0.793, 0.808] |
+| log-likelihood     | 0.800 | [0.792, 0.808] |
+| mean t-test pooled | 0.800 | [0.792, 0.808] |
+| norm pooled        | 0.800 | [0.792, 0.808] |
+| pearson            | 0.800 | [0.792, 0.808] |
+| mean t-test        | 0.800 | [0.792, 0.808] |
+| fisher             | 0.796 | [0.788, 0.804] |
+| norm cc            | 0.782 | [0.773, 0.790] |
+| log-likelihood cc  | 0.780 | [0.772, 0.788] |
+| norm pooled cc     | 0.780 | [0.772, 0.788] |
+| pearson cc         | 0.780 | [0.772, 0.788] |
 
 ### Balanced ratio, unbalanced proportion
 
@@ -345,24 +345,24 @@ Power tests
 | number of observations     | 1000  |
 | treatment to control ratio | 1     |
 | proportion in control      | 0.1   |
-| effect size                | 0.056 |
-| relative effect size       | 0.56  |
+| effect size                | 0.059 |
+| relative effect size       | 0.59  |
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| log-likelihood     | 0.750 | [0.741, 0.758] |
-| norm               | 0.750 | [0.741, 0.758] |
-| mean z-test        | 0.750 | [0.741, 0.758] |
-| mean z-test pooled | 0.749 | [0.741, 0.758] |
-| norm pooled        | 0.749 | [0.740, 0.757] |
-| pearson            | 0.749 | [0.740, 0.757] |
-| mean t-test        | 0.749 | [0.740, 0.757] |
-| mean t-test pooled | 0.749 | [0.740, 0.757] |
-| fisher             | 0.733 | [0.724, 0.742] |
-| norm cc            | 0.720 | [0.711, 0.729] |
-| log-likelihood cc  | 0.719 | [0.710, 0.728] |
-| norm pooled cc     | 0.718 | [0.709, 0.727] |
-| pearson cc         | 0.718 | [0.709, 0.727] |
+| log-likelihood     | 0.797 | [0.789, 0.805] |
+| mean z-test pooled | 0.797 | [0.789, 0.805] |
+| norm               | 0.797 | [0.789, 0.805] |
+| norm pooled        | 0.797 | [0.789, 0.805] |
+| pearson            | 0.797 | [0.789, 0.805] |
+| mean t-test pooled | 0.797 | [0.789, 0.804] |
+| mean z-test        | 0.796 | [0.788, 0.804] |
+| mean t-test        | 0.796 | [0.788, 0.804] |
+| fisher             | 0.782 | [0.774, 0.790] |
+| norm cc            | 0.770 | [0.762, 0.778] |
+| log-likelihood cc  | 0.770 | [0.762, 0.778] |
+| norm pooled cc     | 0.769 | [0.761, 0.778] |
+| pearson cc         | 0.769 | [0.761, 0.778] |
 
 ### Unbalanced ratio, balanced proportion
 
@@ -406,19 +406,19 @@ Power tests
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| norm               | 0.813 | [0.805, 0.821] |
-| mean z-test        | 0.812 | [0.804, 0.819] |
-| mean t-test        | 0.810 | [0.802, 0.817] |
-| log-likelihood     | 0.808 | [0.800, 0.816] |
-| mean z-test pooled | 0.806 | [0.799, 0.814] |
-| norm pooled        | 0.806 | [0.798, 0.814] |
-| pearson            | 0.806 | [0.798, 0.814] |
-| mean t-test pooled | 0.806 | [0.798, 0.814] |
-| fisher             | 0.794 | [0.786, 0.801] |
-| norm cc            | 0.790 | [0.781, 0.798] |
-| log-likelihood cc  | 0.784 | [0.775, 0.792] |
-| norm pooled cc     | 0.781 | [0.773, 0.789] |
-| pearson cc         | 0.781 | [0.773, 0.789] |
+| norm               | 0.808 | [0.801, 0.816] |
+| mean z-test        | 0.807 | [0.799, 0.815] |
+| mean t-test        | 0.805 | [0.797, 0.812] |
+| log-likelihood     | 0.803 | [0.795, 0.811] |
+| mean z-test pooled | 0.802 | [0.794, 0.810] |
+| norm pooled        | 0.802 | [0.794, 0.809] |
+| pearson            | 0.802 | [0.794, 0.809] |
+| mean t-test pooled | 0.802 | [0.794, 0.809] |
+| fisher             | 0.789 | [0.781, 0.797] |
+| norm cc            | 0.785 | [0.777, 0.793] |
+| log-likelihood cc  | 0.780 | [0.772, 0.788] |
+| norm pooled cc     | 0.778 | [0.770, 0.786] |
+| pearson cc         | 0.778 | [0.770, 0.786] |
 
 ### Unbalanced ratio, unbalanced proportion
 
@@ -462,16 +462,16 @@ Power tests
 
 | metric             | power | power ci       |
 |:-------------------|:------|:---------------|
-| mean z-test pooled | 0.764 | [0.755, 0.772] |
-| norm pooled        | 0.763 | [0.755, 0.772] |
-| pearson            | 0.763 | [0.755, 0.772] |
-| mean t-test pooled | 0.763 | [0.754, 0.771] |
-| log-likelihood     | 0.745 | [0.736, 0.753] |
-| fisher             | 0.740 | [0.731, 0.748] |
-| norm pooled cc     | 0.724 | [0.715, 0.733] |
-| pearson cc         | 0.724 | [0.715, 0.733] |
-| log-likelihood cc  | 0.701 | [0.692, 0.710] |
-| norm               | 0.690 | [0.681, 0.699] |
-| mean z-test        | 0.688 | [0.679, 0.697] |
-| mean t-test        | 0.685 | [0.676, 0.694] |
-| norm cc            | 0.650 | [0.640, 0.659] |
+| mean z-test pooled | 0.770 | [0.762, 0.778] |
+| norm pooled        | 0.769 | [0.761, 0.778] |
+| pearson            | 0.769 | [0.761, 0.778] |
+| mean t-test pooled | 0.769 | [0.760, 0.777] |
+| log-likelihood     | 0.752 | [0.743, 0.760] |
+| fisher             | 0.746 | [0.738, 0.755] |
+| norm pooled cc     | 0.731 | [0.722, 0.740] |
+| pearson cc         | 0.731 | [0.722, 0.740] |
+| log-likelihood cc  | 0.710 | [0.700, 0.718] |
+| norm               | 0.699 | [0.689, 0.707] |
+| mean z-test        | 0.696 | [0.687, 0.705] |
+| mean t-test        | 0.693 | [0.684, 0.702] |
+| norm cc            | 0.657 | [0.647, 0.666] |
