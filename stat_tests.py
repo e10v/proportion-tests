@@ -15,15 +15,15 @@ import tqdm
 
 ALPHA = 0.05
 POWER = 0.8
-MAX_EFFECT_SIZE_DEV = 0.05
+MAX_EFFECT_SIZE_ERROR = 0.05
 MAX_EFFECT_SIZE_ITER = 10
 
 MAX_PROP = 0.9
 MAX_SLOW_OBS = 100
 
 SLOW = {
-    "barnard": tt.Proportion("value", method="barnard", equal_var=False),
-    "barnard pooled": tt.Proportion("value", method="barnard", equal_var=True),
+    "barnard": tt.Proportion("value", method="barnard", equal_var=True),
+    "barnard unpooled": tt.Proportion("value", method="barnard", equal_var=False),
     "boschloo": tt.Proportion("value", method="boschloo"),
 }
 
@@ -34,16 +34,16 @@ FAST = {
         "value", method="log-likelihood", correction=True),
     "pearson": tt.Proportion("value", method="pearson", correction=False),
     "pearson cc": tt.Proportion("value", method="pearson", correction=True),
-    "norm": tt.Proportion("value", method="norm", correction=False, equal_var=False),
-    "norm pooled": tt.Proportion(
-        "value", method="norm", correction=False, equal_var=True),
-    "norm cc": tt.Proportion("value", method="norm", correction=True, equal_var=False),
-    "norm pooled cc": tt.Proportion(
-        "value", method="norm", correction=True, equal_var=True),
-    "mean z-test": tt.Mean("value", use_t=False, equal_var=False),
-    "mean z-test pooled": tt.Mean("value", use_t=False, equal_var=True),
-    "mean t-test": tt.Mean("value", use_t=True, equal_var=False),
-    "mean t-test pooled": tt.Mean("value", use_t=True, equal_var=True),
+    "norm": tt.Proportion("value", method="norm", correction=False, equal_var=True),
+    "norm unpooled": tt.Proportion(
+        "value", method="norm", correction=False, equal_var=False),
+    "norm cc": tt.Proportion("value", method="norm", correction=True, equal_var=True),
+    "norm unpooled cc": tt.Proportion(
+        "value", method="norm", correction=True, equal_var=False),
+    "mean z-test": tt.Mean("value", use_t=False, equal_var=True),
+    "mean z-test unpooled": tt.Mean("value", use_t=False, equal_var=False),
+    "mean t-test": tt.Mean("value", use_t=True, equal_var=True),
+    "mean t-test unpooled": tt.Mean("value", use_t=True, equal_var=False),
 }
 
 
@@ -54,14 +54,14 @@ def main(
     n_simulations: int,
     n_obs_small: int,
     n_obs_large: int,
-    unbalanced_ratio: float,
-    unbalanced_prop: float,
+    imbalanced_ratio: float,
+    imbalanced_prop: float,
 ) -> None:
     write_text(
         output,
         "# Comparison of two-sample proportion tests",
         mode="w",
-        br_before=False,
+        new_line_before=False,
     )
     for size, n_obs in (("Small", n_obs_small), ("Large", n_obs_large)):
         write_text(output, f"## {size} sample")
@@ -74,28 +74,28 @@ def main(
         )
         run_aa_and_power_tests(
             output,
-            "### Balanced ratio, unbalanced proportion",
+            "### Balanced ratio, imbalanced proportion",
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
-            prop=unbalanced_prop,
+            prop=imbalanced_prop,
         )
         run_aa_and_power_tests(
             output,
-            "### Unbalanced ratio, balanced proportion",
+            "### Imbalanced ratio, balanced proportion",
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
-            ratio=unbalanced_ratio,
+            ratio=imbalanced_ratio,
         )
         run_aa_and_power_tests(
             output,
-            "### Unbalanced ratio, unbalanced proportion",
+            "### Imbalanced ratio, imbalanced proportion",
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
-            ratio=unbalanced_ratio,
-            prop=unbalanced_prop,
+            ratio=imbalanced_ratio,
+            prop=imbalanced_prop,
         )
 
 
@@ -112,7 +112,7 @@ def run_aa_and_power_tests(
     write_text(output, header)
     for test_type, aa_tests in (("AA", True), ("Power", False)):
         write_text(output, f"{test_type} tests")
-        write_data(output, *run_tests(
+        write_data(output, *run_stat_tests(
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
@@ -122,7 +122,7 @@ def run_aa_and_power_tests(
         ))
 
 
-def run_tests(
+def run_stat_tests(
     seed: int,
     *,
     n_simulations: int,
@@ -161,7 +161,7 @@ def run_tests(
         (
             ("number of simulations", n_simulations),
             ("number of observations", n_obs),
-            ("treatment to control ratio", ratio),
+            ("treatment to control allocation ratio", ratio),
             ("proportion in control", prop),
             ("effect size", round(effect_size, 3)),
             ("relative effect size", round(effect_size / prop, 2)),
@@ -176,22 +176,22 @@ def run_tests(
         .group_by("metric")
         .agg(
             pl.col("pvalue").le(ALPHA).cast(int).sum().alias("null rejected"),
-            pl.col("pvalue").count().alias("not nan"),
+            pl.col("pvalue").count().alias("total"),
         )
         .sort(
-            pl.col("null rejected").truediv(pl.col("not nan")),
+            pl.col("null rejected").truediv(pl.col("total")),
             "metric",
             descending=(True, False),
         )
         .select(
             "metric",
             pl.col("null rejected")
-                .truediv(pl.col("not nan"))
+                .truediv(pl.col("total"))
                 .map_elements(lambda x: f"{x:.3f}")
                 .alias(rate_col),
             pl.col("null rejected")
                 .map_elements(
-                    functools.partial(calc_ci, n=n_simulations),
+                    functools.partial(calc_binom_ci, n=n_simulations),
                     return_dtype=pl.String,
                 )
                 .alias(rate_col + " ci"),
@@ -231,7 +231,7 @@ def calc_effect_size(
 
     if (
         n_iter >= MAX_EFFECT_SIZE_ITER or
-        abs(prev_effect_size/effect_size - 1) < MAX_EFFECT_SIZE_DEV
+        abs(prev_effect_size/effect_size - 1) < MAX_EFFECT_SIZE_ERROR
     ):
         return effect_size
 
@@ -251,7 +251,7 @@ def calc_scale(prop: float, n_obs: int, ratio: float, effect_size: float = 0) ->
     return math.sqrt(p * (1 - p) * (1/n_contr + 1/n_treat))
 
 
-def calc_ci(k: int, n: int) -> str:
+def calc_binom_ci(k: int, n: int) -> str:
     ci_lower, ci_upper = scipy.stats.binomtest(k, n).proportion_ci(method="wilsoncc")
     return f"[{ci_lower:.3f}, {ci_upper:.3f}]"
 
@@ -261,24 +261,22 @@ def write_text(
     text: str,
     *,
     mode: str = "a",
-    br_before: bool=True,
-    br_after: bool=True,
+    new_line_before: bool=True,
 ) -> None:
     with open(output, mode) as f:
-        if br_before:
+        if new_line_before:
             f.write("\n")
-        f.write(text)
-        if br_after:
-            f.write("\n")
+        f.write(text + "\n")
 
 
 def write_data(output: str, *data: pl.DataFrame) -> None:
     with pl.Config(
+        fmt_float="full",
+        fmt_str_lengths=50,
         tbl_formatting="MARKDOWN",
         tbl_hide_column_data_types=True,
         tbl_hide_dataframe_shape=True,
         tbl_rows=-1,
-        fmt_float="full",
     ):
         write_text(output, "\n\n".join(str(df).replace("|--", "|:-") for df in data))
 
@@ -290,7 +288,7 @@ if __name__ == "__main__":
         "--config",
         dest="config",
         type=str,
-        default="config.toml",
+        default="stat_tests.toml",
         help="Config file",
         required=False,
     )
