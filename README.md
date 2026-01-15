@@ -13,19 +13,19 @@ We are interested in choosing a test with the highest [statistical power](https:
 
 Factors to take into account:
 
-- Sample parameters: sample size, treatment to control sample size ratio, expected proportion value.
+- Sample parameters: sample size, treatment to control allocation ratio, expected proportion value.
 - Test parameters (depending on the test): [continuity correction](https://en.wikipedia.org/wiki/Continuity_correction), [pooled](https://en.wikipedia.org/wiki/Pooled_variance) or unpooled variance.
 - Computational complexity: Barnard's and especially Boschloo's exact tests are computationally expensive when applied with a large sample.
 
-## Simulations
+## Statistical tests
 
-The code (`main.py`) in this repository simulates multiple experiments, estimates both type I error rate and statistical power, and saves the results.
+The code (`stat_tests.py`) in this repository simulates multiple experiments, estimates both type I error rate and statistical power, and saves the results.
 
 The simulations are performed for each combination of factors:
 
 - Number of observations: small (`100`) and large (`1000`).
-- Treatment to control ratio of the number of observations: balanced (1:1 treatment to control) and unbalanced (1:4 treatment to control).
-- Proportion value: balanced (`0.5`) and unbalanced (`0.1`).
+- Treatment to control allocation ratio: balanced (1:1 treatment to control) and imbalanced (1:4 treatment to control).
+- Proportion value: balanced (`0.5`) and imbalanced (`0.1`).
 
 Two types of simulations are performed for each combination of parameters:
 
@@ -34,35 +34,35 @@ Two types of simulations are performed for each combination of parameters:
 
 Type I error rate and statistical power are estimated using the [significance](https://en.wikipedia.org/wiki/Statistical_significance) level equal to `0.05`.
 
-The results are saved in a file (`results.md`).
+The results are saved in a file (`stat_tests.md`).
 
-Exact tests in simulations (only with small number of observations):
+Exact tests in simulations:
 
-| metric         | test       | variance |
-|:---------------|:-----------|:---------|
-| barnard        | Barnard's  | unpooled |
-| barnard pooled | Barnard's  | pooled   |
-| boschloo       | Boschloo's | -        |
-| fisher         | Fisher's   | -        |
+| metric           | test       | variance |
+|:-----------------|:-----------|:---------|
+| barnard          | Barnard's  | pooled   |
+| barnard unpooled | Barnard's  | unpooled |
+| boschloo         | Boschloo's | -        |
+| fisher           | Fisher's   | -        |
 
-Barnard's exact tests uses the Wald statistic. Boschloo's exact test is also known as Barnard's exact test with p-value of Fisher's exact test as a statistic.
+Barnard's exact tests uses the Wald statistic. Boschloo's exact test is also known as Barnard's exact test with p-value of Fisher's exact test as a statistic. Both Barnard's and Boschloo's tests are computationally expensive and tested only with small samples.
 
 Asymptotic tests in simulations:
 
-| metric             | test                  | variance | continuity correction |
-|:-------------------|:----------------------|:---------|:----------------------|
-| log-likelihood     | G-test                | -        | no                    |
-| log-likelihood cc  | G-test                | -        | yes                   |
-| pearson            | Pearson's chi-squared | -        | no                    |
-| pearson cc         | Pearson's chi-squared | -        | yes                   |
-| norm               | Proportion Z-test     | unpooled | no                    |
-| norm pooled        | Proportion Z-test     | pooled   | no                    |
-| norm cc            | Proportion Z-test     | unpooled | yes                   |
-| norm pooled cc     | Proportion Z-test     | pooled   | yes                   |
-| mean z-test        | Z-test of means       | unpooled | no                    |
-| mean z-test pooled | Z-test of means       | pooled   | no                    |
-| mean t-test        | Student's t-test      | unpooled | no                    |
-| mean t-test pooled | Student's t-test      | pooled   | no                    |
+| metric               | test                  | variance | continuity correction |
+|:---------------------|:----------------------|:---------|:----------------------|
+| log-likelihood       | G-test                | -        | no                    |
+| log-likelihood cc    | G-test                | -        | yes                   |
+| pearson              | Pearson's chi-squared | -        | no                    |
+| pearson cc           | Pearson's chi-squared | -        | yes                   |
+| norm                 | Proportion Z-test     | pooled   | no                    |
+| norm unpooled        | Proportion Z-test     | unpooled | no                    |
+| norm cc              | Proportion Z-test     | pooled   | yes                   |
+| norm unpooled cc     | Proportion Z-test     | unpooled | yes                   |
+| mean z-test          | Z-test of means       | pooled   | no                    |
+| mean z-test unpooled | Z-test of means       | unpooled | no                    |
+| mean t-test          | Student's t-test      | pooled   | no                    |
+| mean t-test unpooled | Student's t-test      | unpooled | no                    |
 
 ## How to reproduce the results
 
@@ -80,13 +80,13 @@ Install dependencies:
 uv sync --frozen
 ```
 
-Run the simulations:
+Run the statistical tests:
 
 ```bash
-uv run main.py
+uv run stat_tests.py
 ```
 
-Optionally, you can change parameters in the configuration file (`config.toml`).
+Optionally, you can change parameters in the configuration file (`stat_tests.toml`).
 
 ## Discussion of the results
 

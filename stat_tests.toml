@@ -1,5 +1,5 @@
 # Output file
-output = "results.md"
+output = "stat_tests.md"
 
 # Random seed
 seed = 42
@@ -13,8 +13,8 @@ n_obs_small = 100
 # Large number of observations 
 n_obs_large = 1000
 
-# Unbalanced treatment to control ratio of the number of observations
-unbalanced_ratio = 0.25
+# Imbalanced treatment to control allocation ratio
+imbalanced_ratio = 0.25
 
-# Unbalanced proportion
-unbalanced_prop = 0.1
+# Imbalanced proportion
+imbalanced_prop = 0.1
