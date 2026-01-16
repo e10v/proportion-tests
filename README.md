@@ -32,7 +32,7 @@ Two types of simulations are performed for each combination of parameters:
 - AA tests: without true difference between the proportions of two groups.
 - Power tests: with true difference between the proportions of two groups.
 
-Type I error rate and statistical power are estimated using the [significance](https://en.wikipedia.org/wiki/Statistical_significance) level equal to `0.05`.
+Type I error rate and statistical power are estimated using the [significance](https://en.wikipedia.org/wiki/Statistical_significance) level equal to `0.05`. Effect size for the power tests is estimated using the target power equal to `0.8`.
 
 The results are saved in a file (`stat_tests.md`).
 

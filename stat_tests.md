@@ -1,5 +1,11 @@
 # Comparison of two-sample proportion tests
 
+| parameter             | value |
+|:----------------------|:------|
+| number of simulations | 10000 |
+| alpha                 | 0.05  |
+| power                 | 0.8   |
+
 ## Small sample
 
 ### Balanced ratio, balanced proportion
@@ -8,7 +14,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.5   |
@@ -38,7 +43,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.5   |
@@ -70,7 +74,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.1   |
@@ -100,7 +103,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.1   |
@@ -132,7 +134,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.5   |
@@ -162,7 +163,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.5   |
@@ -194,7 +194,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.1   |
@@ -224,7 +223,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 100   |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.1   |
@@ -258,7 +256,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.5   |
@@ -285,7 +282,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.5   |
@@ -314,7 +310,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.1   |
@@ -341,7 +336,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 1     |
 | proportion in control                 | 0.1   |
@@ -370,7 +364,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.5   |
@@ -397,7 +390,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.5   |
@@ -426,7 +418,6 @@ AA tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.1   |
@@ -453,7 +444,6 @@ Power tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
-| number of simulations                 | 10000 |
 | number of observations                | 1000  |
 | treatment to control allocation ratio | 0.25  |
 | proportion in control                 | 0.1   |
