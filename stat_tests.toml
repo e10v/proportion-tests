@@ -18,3 +18,9 @@ imbalanced_ratio = 0.25
 
 # Imbalanced proportion
 imbalanced_prop = 0.1
+
+# Significance level
+alpha = 0.05
+
+# Statistical power
+power = 0.8

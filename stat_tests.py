@@ -13,11 +13,8 @@ import tea_tasting as tt
 import tqdm
 
 
-ALPHA = 0.05
-POWER = 0.8
 MAX_EFFECT_SIZE_ERROR = 0.05
-MAX_EFFECT_SIZE_ITER = 10
-
+MAX_EFFECT_SIZE_ITER = 100
 MAX_PROP = 0.9
 MAX_SLOW_OBS = 100
 
@@ -56,6 +53,8 @@ def main(
     n_obs_large: int,
     imbalanced_ratio: float,
     imbalanced_prop: float,
+    alpha: float,
+    power: float,
 ) -> None:
     write_text(
         output,
@@ -63,6 +62,15 @@ def main(
         mode="w",
         new_line_before=False,
     )
+    write_data(output, pl.from_records(
+        (
+            ("number of simulations", n_simulations),
+            ("alpha", alpha),
+            ("power", power),
+        ),
+        schema=("parameter", "value"),
+        orient="row",
+    ))
     for size, n_obs in (("Small", n_obs_small), ("Large", n_obs_large)):
         write_text(output, f"## {size} sample")
         run_aa_and_power_tests(
@@ -71,6 +79,10 @@ def main(
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
+            ratio=1,
+            prop=0.5,
+            alpha=alpha,
+            power=power,
         )
         run_aa_and_power_tests(
             output,
@@ -78,7 +90,10 @@ def main(
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
+            ratio=1,
             prop=imbalanced_prop,
+            alpha=alpha,
+            power=power,
         )
         run_aa_and_power_tests(
             output,
@@ -87,6 +102,9 @@ def main(
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=imbalanced_ratio,
+            prop=0.5,
+            alpha=alpha,
+            power=power,
         )
         run_aa_and_power_tests(
             output,
@@ -96,6 +114,8 @@ def main(
             n_obs=n_obs,
             ratio=imbalanced_ratio,
             prop=imbalanced_prop,
+            alpha=alpha,
+            power=power,
         )
 
 
@@ -106,8 +126,10 @@ def run_aa_and_power_tests(
     seed: int,
     n_simulations: int,
     n_obs: int,
-    ratio: float = 1,
-    prop: float = 0.5,
+    ratio: float,
+    prop: float,
+    alpha: float,
+    power: float,
 ) -> None:
     write_text(output, header)
     for test_type, aa_tests in (("AA", True), ("Power", False)):
@@ -119,6 +141,8 @@ def run_aa_and_power_tests(
             ratio=ratio,
             prop=prop,
             aa_tests=aa_tests,
+            alpha=alpha,
+            power=power,
         ))
 
 
@@ -127,16 +151,19 @@ def run_stat_tests(
     *,
     n_simulations: int,
     n_obs: int,
-    ratio: float = 1,
-    prop: float = 0.5,
-    aa_tests: bool = True,
+    ratio: float,
+    prop: float,
+    aa_tests: bool,
+    alpha: float,
+    power: float,
 ) -> tuple[pl.DataFrame, pl.DataFrame]:
     if aa_tests:
         effect_size = 0
         rate_col = "type I error"
     else:
+        z_stat = scipy.stats.norm.isf(alpha / 2) + scipy.stats.norm.ppf(power)
         effect_size = min(
-            calc_effect_size(n_obs=n_obs, ratio=ratio, prop=prop),
+            calc_effect_size(n_obs=n_obs, ratio=ratio, prop=prop, z_stat=z_stat),
             MAX_PROP - prop,
         )
         rate_col = "power"
@@ -159,7 +186,6 @@ def run_stat_tests(
 
     params = pl.from_records(
         (
-            ("number of simulations", n_simulations),
             ("number of observations", n_obs),
             ("treatment to control allocation ratio", ratio),
             ("proportion in control", prop),
@@ -175,7 +201,7 @@ def run_stat_tests(
         .filter(pl.col("pvalue").is_not_nan())
         .group_by("metric")
         .agg(
-            pl.col("pvalue").le(ALPHA).cast(int).sum().alias("null rejected"),
+            pl.col("pvalue").le(alpha).cast(int).sum().alias("null rejected"),
             pl.col("pvalue").count().alias("total"),
         )
         .sort(
@@ -218,9 +244,9 @@ def calc_effect_size(
     n_obs: int,
     ratio: float,
     prop: float,
+    z_stat: float,
     prev_effect_size: float = 0,
     n_iter: int = 1,
-    z_stat: float = scipy.stats.norm.isf(ALPHA / 2) + scipy.stats.norm.ppf(POWER),
 ) -> float:
     effect_size = z_stat * calc_scale(
         n_obs=n_obs,
@@ -239,16 +265,17 @@ def calc_effect_size(
         n_obs=n_obs,
         ratio=ratio,
         prop=prop,
+        z_stat=z_stat,
         prev_effect_size=effect_size,
         n_iter=n_iter + 1,
     )
 
 
 def calc_scale(prop: float, n_obs: int, ratio: float, effect_size: float = 0) -> float:
-    n_contr = n_obs / (1 + ratio)
-    n_treat = n_obs * ratio / (1 + ratio)
-    p = (prop * n_contr + (prop + effect_size) * n_treat) / n_obs
-    return math.sqrt(p * (1 - p) * (1/n_contr + 1/n_treat))
+    n0 = n_obs / (1 + ratio)
+    n1 = n_obs * ratio / (1 + ratio)
+    p = (prop * n0 + (prop + effect_size) * n1) / n_obs
+    return math.sqrt(p * (1 - p) * (1/n0 + 1/n1))
 
 
 def calc_binom_ci(k: int, n: int) -> str:
