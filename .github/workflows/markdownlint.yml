@@ -2,13 +2,13 @@ name: markdownlint
 on:
   pull_request:
     paths:
-      - 'README.md'
+      - '*.md'
       - '.markdownlint.yml'
       - '.github/workflows/markdownlint.yml'
   push:
     branches: [main]
     paths:
-      - 'README.md'
+      - '*.md'
       - '.markdownlint.yml'
       - '.github/workflows/markdownlint.yml'
   workflow_dispatch:
@@ -22,4 +22,4 @@ jobs:
         uses: DavidAnson/markdownlint-cli2-action@v22
         with:
           globs: |
-            README.md
+            *.md

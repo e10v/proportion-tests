@@ -24,7 +24,7 @@ lines-after-imports = 2
 max-args = 10
 
 [tool.poe.tasks]
-markdownlint = 'markdownlint-cli2 "README.md"'
+markdownlint = 'markdownlint-cli2 "*.md"'
 reset = [
     { cmd = "git checkout main" },
     { cmd = "git pull" },
