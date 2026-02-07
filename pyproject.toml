@@ -22,3 +22,14 @@ lines-after-imports = 2
 
 [tool.ruff.lint.pylint]
 max-args = 10
+
+[tool.poe.tasks]
+markdownlint = 'markdownlint-cli2 "README.md"'
+reset = [
+    { cmd = "git checkout main" },
+    { cmd = "git pull" },
+    { cmd = "git checkout dev" },
+    { cmd = "git reset --hard main" },
+    { cmd = "git push --force" },
+]
+upgrade = "uv sync --all-groups --upgrade"
