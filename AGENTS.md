@@ -38,7 +38,7 @@
 ## Docs checking
 
 - Checks for docs changes:
-    - Markdown lint: `markdownlint-cli2 "README.md"`
+    - Markdown lint: `markdownlint-cli2 "*.md"`
 - Run them after creating or updating markdown files; fix errors.
 
 ## Code versioning
