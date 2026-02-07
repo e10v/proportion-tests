@@ -223,7 +223,7 @@ def run_stat_tests(
                 .alias(rate_col + " ci"),
         )
         .collect()
-    )
+    )  # ty:ignore[invalid-return-type]
 
 
 def make_data(
