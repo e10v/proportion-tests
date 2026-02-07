@@ -10,6 +10,7 @@ import numpy as np
 import polars as pl
 import scipy.stats
 import tea_tasting as tt
+import tea_tasting.aggr
 import tqdm
 
 
@@ -233,11 +234,28 @@ def make_data(
     ratio: float,
     prop: float,
     effect_size: float,
-) -> pl.DataFrame:
+) -> dict[object, tea_tasting.aggr.Aggregates]:
     rng = np.random.default_rng(seed=seed)
-    variant = rng.binomial(n=1, p=ratio / (1 + ratio), size=n_obs)
-    value = rng.binomial(n=1, p=prop + effect_size*variant, size=n_obs)
-    return pl.DataFrame({"variant": variant, "value": value})
+    n0 = np.clip(rng.binomial(n=n_obs, p=1 / (1 + ratio)), 2, n_obs - 2)
+    n1 = n_obs - n0
+    k0 = rng.binomial(n=n0, p=prop)
+    k1 = rng.binomial(n=n1, p=prop + effect_size)
+    m0 = k0 / n0
+    m1 = k1 / n1
+    v0 = m0 * (1 - m0) * n0 / (n0 - 1)
+    v1 = m1 * (1 - m1) * n1 / (n1 - 1)
+    return {
+        0: tea_tasting.aggr.Aggregates(
+            count_=n0,
+            mean_={"value": m0},
+            var_={"value": v0},
+        ),
+        1: tea_tasting.aggr.Aggregates(
+            count_=n1,
+            mean_={"value": m1},
+            var_={"value": v1},
+        ),
+    }
 
 
 def calc_effect_size(
