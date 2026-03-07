@@ -19,7 +19,7 @@ Factors to take into account:
 
 ## Statistical tests
 
-The code (`stat_tests.py`) in this repository simulates multiple experiments, estimates both type I error rate and statistical power, and saves the results.
+The code (`simulation.py`) in this repository simulates multiple experiments, estimates both type I error rate and statistical power, and saves the results.
 
 The simulations are performed for each combination of factors:
 
@@ -34,7 +34,7 @@ Two types of simulations are performed for each combination of parameters:
 
 Type I error rate and statistical power are estimated using the [significance](https://en.wikipedia.org/wiki/Statistical_significance) level equal to `0.05`. Effect size for the power tests is estimated using the target power equal to `0.8`.
 
-The results are saved in a file (`stat_tests.md`).
+The results are saved in a file (`simulation.md`).
 
 Exact tests in simulations:
 
@@ -83,10 +83,10 @@ uv sync --frozen
 Run the statistical tests:
 
 ```bash
-uv run stat_tests.py
+uv run simulation.py
 ```
 
-Optionally, you can change parameters in the configuration file (`stat_tests.toml`).
+Optionally, you can change parameters in the configuration file (`simulation.toml`).
 
 ## Discussion of the results
 

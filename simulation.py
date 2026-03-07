@@ -45,7 +45,23 @@ FAST = {
 }
 
 
-def main(
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-c",
+        "--config",
+        dest="config",
+        type=str,
+        default="simulation.toml",
+        help="Config file",
+        required=False,
+    )
+    with open(parser.parse_args().config, "rb") as f:
+        config = tomllib.load(f)
+    generate_simulation_report(**config)
+
+
+def generate_simulation_report(
     output: str,
     seed: int,
     *,
@@ -74,7 +90,7 @@ def main(
     ))
     for size, n_obs in (("Small", n_obs_small), ("Large", n_obs_large)):
         write_text(output, f"## {size} sample")
-        run_aa_and_power_tests(
+        append_simulation_results(
             output,
             "### Balanced ratio, balanced proportion",
             seed=seed,
@@ -85,7 +101,7 @@ def main(
             alpha=alpha,
             power=power,
         )
-        run_aa_and_power_tests(
+        append_simulation_results(
             output,
             "### Balanced ratio, imbalanced proportion",
             seed=seed,
@@ -96,7 +112,7 @@ def main(
             alpha=alpha,
             power=power,
         )
-        run_aa_and_power_tests(
+        append_simulation_results(
             output,
             "### Imbalanced ratio, balanced proportion",
             seed=seed,
@@ -107,7 +123,7 @@ def main(
             alpha=alpha,
             power=power,
         )
-        run_aa_and_power_tests(
+        append_simulation_results(
             output,
             "### Imbalanced ratio, imbalanced proportion",
             seed=seed,
@@ -120,7 +136,7 @@ def main(
         )
 
 
-def run_aa_and_power_tests(
+def append_simulation_results(
     output: str,
     header: str,
     *,
@@ -133,32 +149,32 @@ def run_aa_and_power_tests(
     power: float,
 ) -> None:
     write_text(output, header)
-    for test_type, aa_tests in (("AA", True), ("Power", False)):
+    for test_type, is_aa in (("A/A", True), ("Power", False)):
         write_text(output, f"{test_type} tests")
-        write_data(output, *run_stat_tests(
+        write_data(output, *simulate_experiments(
             seed=seed,
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=ratio,
             prop=prop,
-            aa_tests=aa_tests,
+            is_aa=is_aa,
             alpha=alpha,
             power=power,
         ))
 
 
-def run_stat_tests(
+def simulate_experiments(
     seed: int,
     *,
     n_simulations: int,
     n_obs: int,
     ratio: float,
     prop: float,
-    aa_tests: bool,
+    is_aa: bool,
     alpha: float,
     power: float,
 ) -> tuple[pl.DataFrame, pl.DataFrame]:
-    if aa_tests:
+    if is_aa:
         effect_size = 0
         rate_col = "type I error"
     else:
@@ -327,16 +343,4 @@ def write_data(output: str, *data: pl.DataFrame) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-c",
-        "--config",
-        dest="config",
-        type=str,
-        default="stat_tests.toml",
-        help="Config file",
-        required=False,
-    )
-    with open(parser.parse_args().config, "rb") as f:
-        config = tomllib.load(f)
-    main(**config)
+    main()

@@ -10,7 +10,7 @@
 
 ### Balanced ratio, balanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -70,7 +70,7 @@ Power tests
 
 ### Balanced ratio, imbalanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -130,7 +130,7 @@ Power tests
 
 ### Imbalanced ratio, balanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -190,7 +190,7 @@ Power tests
 
 ### Imbalanced ratio, imbalanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -252,7 +252,7 @@ Power tests
 
 ### Balanced ratio, balanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -306,7 +306,7 @@ Power tests
 
 ### Balanced ratio, imbalanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -360,7 +360,7 @@ Power tests
 
 ### Imbalanced ratio, balanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|
@@ -414,7 +414,7 @@ Power tests
 
 ### Imbalanced ratio, imbalanced proportion
 
-AA tests
+A/A tests
 
 | parameter                             | value |
 |:--------------------------------------|:------|

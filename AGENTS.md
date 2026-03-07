@@ -3,9 +3,9 @@
 ## Project structure
 
 - Statistical simulations:
-    - `stat_tests.py`: main simulation engine and CLI entrypoint.
-    - `stat_tests.toml`: runtime parameters (seed, sample sizes, alpha/power, output path).
-    - `stat_tests.md`: generated results report (markdown tables).
+    - `simulation.py`: main simulation engine and CLI entrypoint.
+    - `simulation.toml`: runtime parameters (seed, sample sizes, alpha/power, output path).
+    - `simulation.md`: generated results report (markdown tables).
 
 ## Code style
 
