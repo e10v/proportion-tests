@@ -1,0 +1,14 @@
+# Output file
+output = "benchmark.md"
+
+# Random seed
+rng = 42
+
+# Number of observations 
+n_obs = 1000
+
+# Number of separate timing runs
+repeat = 10
+
+# Number of times the timed statement is executed in one timing run
+number = 10
