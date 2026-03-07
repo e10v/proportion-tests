@@ -13,7 +13,7 @@ dev = ["ruff", "ty"]
 extend-select = [
     "A", "ANN", "ARG", "B", "C4", "C90", "COM", "E", "F", "ERA", "FA", "FLY", "FURB",
     "I", "ICN", "INP", "INT", "ISC", "N", "NPY", "PERF", "PGH", "PIE", "PL", "Q", "RET",
-    "RSE", "RUF", "S", "SIM", "SLF", "T20", "TC", "TID", "TRY", "UP", "W",
+    "RSE", "RUF", "S", "SIM", "SLF", "TC", "TID", "TRY", "UP", "W",
 ]
 
 [tool.ruff.lint.isort]
