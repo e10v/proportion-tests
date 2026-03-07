@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Comparison of two-sample proportion tests"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["polars", "tea_tasting>=1.7", "tqdm"]
+dependencies = ["polars", "tea_tasting>=1.13", "tqdm"]
 
 [dependency-groups]
 dev = ["ruff", "ty"]

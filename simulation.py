@@ -5,13 +5,20 @@ import concurrent.futures
 import functools
 import math
 import tomllib
+from typing import TYPE_CHECKING
 
 import numpy as np
 import polars as pl
 import scipy.stats
 import tea_tasting as tt
 import tea_tasting.aggr
+import tea_tasting.utils
 import tqdm
+
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+    from typing import Any
 
 
 MAX_EFFECT_SIZE_ERROR = 0.05
@@ -63,7 +70,7 @@ def main() -> None:
 
 def generate_simulation_report(
     output: str,
-    seed: int,
+    rng: int,
     *,
     n_simulations: int,
     n_obs_small: int,
@@ -79,21 +86,17 @@ def generate_simulation_report(
         mode="w",
         new_line_before=False,
     )
-    write_data(output, pl.from_records(
-        (
-            ("number of simulations", n_simulations),
-            ("alpha", alpha),
-            ("power", power),
-        ),
-        schema=("parameter", "value"),
-        orient="row",
-    ))
+    write_params(output, {
+        "number of simulations": n_simulations,
+        "alpha": alpha,
+        "power": power,
+    })
     for size, n_obs in (("Small", n_obs_small), ("Large", n_obs_large)):
         write_text(output, f"## {size} sample")
         append_simulation_results(
             output,
             "### Balanced ratio, balanced proportion",
-            seed=seed,
+            rng=rng,
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=1,
@@ -104,7 +107,7 @@ def generate_simulation_report(
         append_simulation_results(
             output,
             "### Balanced ratio, imbalanced proportion",
-            seed=seed,
+            rng=rng,
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=1,
@@ -115,7 +118,7 @@ def generate_simulation_report(
         append_simulation_results(
             output,
             "### Imbalanced ratio, balanced proportion",
-            seed=seed,
+            rng=rng,
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=imbalanced_ratio,
@@ -126,7 +129,7 @@ def generate_simulation_report(
         append_simulation_results(
             output,
             "### Imbalanced ratio, imbalanced proportion",
-            seed=seed,
+            rng=rng,
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=imbalanced_ratio,
@@ -140,7 +143,7 @@ def append_simulation_results(
     output: str,
     header: str,
     *,
-    seed: int,
+    rng: int,
     n_simulations: int,
     n_obs: int,
     ratio: float,
@@ -150,9 +153,9 @@ def append_simulation_results(
 ) -> None:
     write_text(output, header)
     for test_type, is_aa in (("A/A", True), ("Power", False)):
-        write_text(output, f"{test_type} tests")
-        write_data(output, *simulate_experiments(
-            seed=seed,
+        write_text(output, f"{test_type} simulations")
+        params, results = simulate_experiments(
+            rng=rng,
             n_simulations=n_simulations,
             n_obs=n_obs,
             ratio=ratio,
@@ -160,11 +163,13 @@ def append_simulation_results(
             is_aa=is_aa,
             alpha=alpha,
             power=power,
-        ))
+        )
+        write_params(output, params)
+        write_results(output, results)
 
 
 def simulate_experiments(
-    seed: int,
+    rng: int,
     *,
     n_simulations: int,
     n_obs: int,
@@ -173,7 +178,7 @@ def simulate_experiments(
     is_aa: bool,
     alpha: float,
     power: float,
-) -> tuple[pl.DataFrame, pl.DataFrame]:
+) -> tuple[dict[str, Any], pl.DataFrame]:
     if is_aa:
         effect_size = 0
         rate_col = "type I error"
@@ -187,7 +192,7 @@ def simulate_experiments(
 
     metrics = FAST if n_obs > MAX_SLOW_OBS else SLOW | FAST
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        results = tt.Experiment(metrics).simulate(
+        simulation_results = tt.Experiment(metrics).simulate(  # ty:ignore[invalid-argument-type]
             functools.partial(
                 make_data,
                 n_obs=n_obs,
@@ -196,25 +201,21 @@ def simulate_experiments(
                 effect_size=effect_size,
             ),
             n_simulations=n_simulations,
-            seed=seed,
+            rng=rng,
             map_=executor.map,
             progress=tqdm.tqdm,
         )
 
-    params = pl.from_records(
-        (
-            ("number of observations", n_obs),
-            ("treatment to control allocation ratio", ratio),
-            ("proportion in control", prop),
-            ("effect size", round(effect_size, 3)),
-            ("relative effect size", round(effect_size / prop, 2)),
-        ),
-        schema=("parameter", "value"),
-        orient="row",
-    )
+    params = {
+        "number of observations": n_obs,
+        "treatment to control allocation ratio": ratio,
+        "proportion in control": prop,
+        "effect size": round(effect_size, 3),
+        "relative effect size": round(effect_size / prop, 2),
+    }
 
-    return params, (
-        results.to_polars().lazy()
+    results: pl.DataFrame = (
+        simulation_results.to_polars().lazy()
         .filter(pl.col("pvalue").is_not_nan())
         .group_by("metric")
         .agg(
@@ -240,18 +241,20 @@ def simulate_experiments(
                 .alias(rate_col + " ci"),
         )
         .collect()
-    )  # ty:ignore[invalid-return-type]
+    )  # ty:ignore[invalid-assignment]
+
+    return params, results
 
 
 def make_data(
-    seed: int | np.random.Generator,
+    rng: int | np.random.Generator,
     *,
     n_obs: int,
     ratio: float,
     prop: float,
     effect_size: float,
 ) -> dict[object, tea_tasting.aggr.Aggregates]:
-    rng = np.random.default_rng(seed=seed)
+    rng = np.random.default_rng(rng)
     n0 = np.clip(rng.binomial(n=n_obs, p=1 / (1 + ratio)), 2, n_obs - 2)
     n1 = n_obs - n0
     k0 = rng.binomial(n=n0, p=prop)
@@ -330,16 +333,42 @@ def write_text(
         f.write(text + "\n")
 
 
-def write_data(output: str, *data: pl.DataFrame) -> None:
-    with pl.Config(
-        fmt_float="full",
-        fmt_str_lengths=50,
-        tbl_formatting="MARKDOWN",
-        tbl_hide_column_data_types=True,
-        tbl_hide_dataframe_shape=True,
-        tbl_rows=-1,
-    ):
-        write_text(output, "\n\n".join(str(df).replace("|--", "|:-") for df in data))
+def write_results(
+    output: str,
+    results: pl.DataFrame,
+    text_keys: Sequence[str] = ("metric",),
+) -> None:
+    write_dicts(output, results.to_dicts(), text_keys)
+
+
+def write_params(output: str, params: dict[str, Any]) -> None:
+    write_dicts(
+        output,
+        tuple({"parameter": par, "value": str(val)} for par, val in params.items()),
+        ("parameter",),
+    )
+
+
+def write_dicts(
+    output: str,
+    dicts: Sequence[dict[str, Any]],
+    text_keys: Sequence[str],
+) -> None:
+    write_text(output, PrettyDicts(dicts, text_keys).to_markdown())
+
+
+class PrettyDicts(tea_tasting.utils.DictsReprMixin):
+    def __init__(
+        self,
+        dicts: Sequence[dict[str, Any]],
+        text_keys: Sequence[str],
+    ) -> None:
+        self.default_keys = tuple(dicts[0].keys())
+        self.default_text_keys = text_keys
+        self.dicts = dicts
+
+    def to_dicts(self) -> Sequence[dict[str, Any]]:
+        return self.dicts
 
 
 if __name__ == "__main__":

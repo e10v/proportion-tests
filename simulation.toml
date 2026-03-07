@@ -2,7 +2,7 @@
 output = "simulation.md"
 
 # Random seed
-seed = 42
+rng = 42
 
 # Number of simulations
 n_simulations = 10000
