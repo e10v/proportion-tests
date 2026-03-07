@@ -1,5 +1,5 @@
 # Output file
-output = "stat_tests.md"
+output = "simulation.md"
 
 # Random seed
 seed = 42
