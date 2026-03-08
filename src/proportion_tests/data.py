@@ -13,14 +13,14 @@ if TYPE_CHECKING:
 def make_data(
     rng: int | np.random.Generator,
     *,
-    n_obs: int,
+    sample_size: int,
     ratio: float = 1,
     prop: float = 0.5,
     effect_size: float = 0,
 ) -> dict[Any, tea_tasting.aggr.Aggregates]:
     rng = np.random.default_rng(rng)
-    n0 = np.clip(rng.binomial(n=n_obs, p=1 / (1 + ratio)), 2, n_obs - 2)
-    n1 = n_obs - n0
+    n0 = np.clip(rng.binomial(n=sample_size, p=1 / (1 + ratio)), 2, sample_size - 2)
+    n1 = sample_size - n0
     k0 = rng.binomial(n=n0, p=prop)
     k1 = rng.binomial(n=n1, p=prop + effect_size)
     m0 = k0 / n0
