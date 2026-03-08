@@ -112,14 +112,14 @@ def load_config() -> dict[str, Any]:
         tea_tasting.utils.check_scalar(
             test["kwargs"], f"tool.proportion_tests.tests{i}].kwargs", typ=dict)
         tea_tasting.utils.check_scalar(
-            test["max_simulation_obs"],
-            f"tool.proportion_tests.tests{i}].max_simulation_obs",
+            test["max_simulation_size"],
+            f"tool.proportion_tests.tests{i}].max_simulation_size",
             typ=int | float,
             ge=0,
         )
         tea_tasting.utils.check_scalar(
-            test["max_benchmark_obs"],
-            f"tool.proportion_tests.tests{i}].max_benchmark_obs",
+            test["max_benchmark_size"],
+            f"tool.proportion_tests.tests{i}].max_benchmark_size",
             typ=int | float,
             ge=0,
         )
@@ -138,10 +138,10 @@ def init_metric(path: str, **kwargs: dict[str, Any]) -> tea_tasting.metrics.Metr
 def filter_metrics(
     tests: list[dict[str, Any]],
     key: str,
-    n_obs: int,
+    sample_size: int,
 ) -> dict[str, tea_tasting.metrics.MetricBase]:
     metrics = {}
     for test in tests:
-        if test[key] >= n_obs:
+        if test[key] >= sample_size:
             metrics[test["name"]] = test["metric"]
     return metrics
