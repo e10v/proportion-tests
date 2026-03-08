@@ -100,30 +100,30 @@ def load_config() -> dict[str, Any]:
             lt=1,
         )
 
-    metrics = config["metrics"]
-    tea_tasting.utils.check_scalar(metrics, "tool.proportion_tests.metrics", typ=list)
-    for i, metric in enumerate(metrics):
+    tests = config["tests"]
+    tea_tasting.utils.check_scalar(tests, "tool.proportion_tests.metrics", typ=list)
+    for i, test in enumerate(tests):
         tea_tasting.utils.check_scalar(
-            metric, f"tool.proportion_tests.metrics[{i}]", typ=dict)
+            test, f"tool.proportion_tests.tests{i}]", typ=dict)
         tea_tasting.utils.check_scalar(
-            metric["name"], f"tool.proportion_tests.metrics[{i}].name", typ=str)
+            test["name"], f"tool.proportion_tests.tests{i}].name", typ=str)
         tea_tasting.utils.check_scalar(
-            metric["path"], f"tool.proportion_tests.metrics[{i}].path", typ=str)
+            test["path"], f"tool.proportion_tests.tests{i}].path", typ=str)
         tea_tasting.utils.check_scalar(
-            metric["kwargs"], f"tool.proportion_tests.metrics[{i}].kwargs", typ=dict)
+            test["kwargs"], f"tool.proportion_tests.tests{i}].kwargs", typ=dict)
         tea_tasting.utils.check_scalar(
-            metric["max_simulation_obs"],
-            f"tool.proportion_tests.metrics[{i}].max_simulation_obs",
+            test["max_simulation_obs"],
+            f"tool.proportion_tests.tests{i}].max_simulation_obs",
             typ=int | float,
             ge=0,
         )
         tea_tasting.utils.check_scalar(
-            metric["max_benchmark_obs"],
-            f"tool.proportion_tests.metrics[{i}].max_benchmark_obs",
+            test["max_benchmark_obs"],
+            f"tool.proportion_tests.tests{i}].max_benchmark_obs",
             typ=int | float,
             ge=0,
         )
-        metric["object"] = init_metric(metric["path"], **metric["kwargs"])
+        test["metric"] = init_metric(test["path"], **test["kwargs"])
 
     return config
 
@@ -133,3 +133,15 @@ def init_metric(path: str, **kwargs: dict[str, Any]) -> tea_tasting.metrics.Metr
     module = importlib.import_module(mod_name)
     metric = getattr(module, attr_name)
     return metric("value", **kwargs)
+
+
+def filter_metrics(
+    tests: list[dict[str, Any]],
+    key: str,
+    n_obs: int,
+) -> dict[str, tea_tasting.metrics.MetricBase]:
+    metrics = {}
+    for test in tests:
+        if test[key] >= n_obs:
+            metrics[test["name"]] = test["metric"]
+    return metrics
