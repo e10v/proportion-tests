@@ -26,39 +26,34 @@ max-args = 10
 [tool.poe.tasks]
 markdownlint = 'markdownlint-cli2 "*.md"'
 reset = [
-    { cmd = "git checkout main" },
-    { cmd = "git pull" },
-    { cmd = "git checkout dev" },
-    { cmd = "git reset --hard main" },
-    { cmd = "git push --force" },
+    { cmd = "git fetch origin main" },
+    { cmd = "git switch dev" },
+    { cmd = "git reset --hard origin/main" },
+    { cmd = "git push --force-with-lease" },
 ]
 upgrade = "uv sync --all-groups --upgrade"
 
 
 [tool.proportion_tests]
 rng = 42
-benchmark_params = {
-    repeat = 10,  # Number of separate timing repeats
-    number = 10,  # Number of times the statement is executed in one timing repeat
-    output = "reports/benchmark.md",
-}
-simulation_params = {
-    n_simulations = 10_000,
-    alpha = 0.05,
-    power = 0.8,
-    output = "reports/simulation.md",
-}
+n_obs = { small = 100, medium = 1000, large = 10_000 }
 simulations = [
     { name = "Balanced ratio, balanced proportion", ratio = 1, prop = 0.5 },
     { name = "Balanced ratio, imbalanced proportion", ratio = 1, prop = 0.1 },
     { name = "Imbalanced ratio, balanced proportion", ratio = 0.25, prop = 0.5 },
     { name = "Imbalanced ratio, imbalanced proportion", ratio = 0.25, prop = 0.1 },
 ]
-n_obs = {
-    small = 100,
-    medium = 1000,
-    large = 10_000,
-}
+
+[tool.proportion_tests.simulation_params]
+n_simulations = 10_000
+alpha = 0.05
+power = 0.8
+output = "reports/simulation.md"
+
+[tool.proportion_tests.benchmark_params]
+repeat = 10  # Number of separate timing repeats
+number = 10  # Number of times the statement is executed in one timing repeat
+output = "reports/benchmark.md"
 
 [[tool.proportion_tests.metrics]]
 name = "barnard"
