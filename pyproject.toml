@@ -57,112 +57,112 @@ output = "reports/benchmark.md"
 
 [[tool.proportion_tests.metrics]]
 name = "barnard"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "barnard", equal_var = true }
 max_simulation_obs = 100
 max_benchmark_obs = 1000
 
 [[tool.proportion_tests.metrics]]
 name = "barnard unpooled"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "barnard", equal_var = false }
 max_simulation_obs = 100
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "boschloo"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "boschloo" }
 max_simulation_obs = 100
 max_benchmark_obs = 1000
 
 [[tool.proportion_tests.metrics]]
 name = "fisher"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "fisher" }
 max_simulation_obs = 1000
 max_benchmark_obs = 10000
 
 [[tool.proportion_tests.metrics]]
 name = "log-likelihood"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "log-likelihood", correction = false }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = inf  # No limit
 
 [[tool.proportion_tests.metrics]]
 name = "log-likelihood cc"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "log-likelihood", correction = true }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "pearson"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "pearson", correction = false }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = inf  # No limit
 
 [[tool.proportion_tests.metrics]]
 name = "pearson cc"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "pearson", correction = true }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "norm"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = false, equal_var = true }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = inf  # No limit
 
 [[tool.proportion_tests.metrics]]
 name = "norm unpooled"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = false, equal_var = false }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "norm cc"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = true, equal_var = true }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "norm unpooled cc"
-class = "tea_tasting.Proportion"
+path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = true, equal_var = false }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "mean z-test"
-class = "tea_tasting.Mean"
+path = "tea_tasting.Mean"
 kwargs = { use_t = false, equal_var = true }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = inf  # No limit
 
 [[tool.proportion_tests.metrics]]
 name = "mean z-test unpooled"
-class = "tea_tasting.Mean"
+path = "tea_tasting.Mean"
 kwargs = { use_t = false, equal_var = false }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
 
 [[tool.proportion_tests.metrics]]
 name = "mean t-test"
-class = "tea_tasting.Mean"
+path = "tea_tasting.Mean"
 kwargs = { use_t = true, equal_var = true }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = inf  # No limit
 
 [[tool.proportion_tests.metrics]]
 name = "mean t-test unpooled"
-class = "tea_tasting.Mean"
+path = "tea_tasting.Mean"
 kwargs = { use_t = true, equal_var = false }
 max_simulation_obs = inf  # No limit
 max_benchmark_obs = 0  # Exclude from benchmark
