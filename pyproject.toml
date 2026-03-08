@@ -44,13 +44,13 @@ simulations = [
     { name = "Imbalanced ratio, imbalanced proportion", ratio = 0.25, prop = 0.1 },
 ]
 
-[tool.proportion_tests.simulation_params]
+[tool.proportion_tests.simulation]
 n_simulations = 10_000
 alpha = 0.05
 power = 0.8
 output = "reports/simulation.md"
 
-[tool.proportion_tests.benchmark_params]
+[tool.proportion_tests.benchmark]
 repeat = 10  # Number of separate timing repeats
 number = 10  # Number of times the statement is executed in one timing repeat
 output = "reports/benchmark.md"
