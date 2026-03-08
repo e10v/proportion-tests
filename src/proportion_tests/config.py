@@ -25,27 +25,26 @@ def load_config() -> dict[str, Any]:
         tea_tasting.utils.check_scalar(
             val, f"tool.proportion_tests.{key}", typ=int, gt=0)
 
-    simulations = config["simulations"]
+    benchmark = config["benchmark"]
     tea_tasting.utils.check_scalar(
-        simulations, "tool.proportion_tests.simulations", typ=list)
-    for i, sim in enumerate(simulations):
-        tea_tasting.utils.check_scalar(
-            sim, f"tool.proportion_tests.simulations[{i}]", typ=dict)
-        tea_tasting.utils.check_scalar(
-            sim["name"], f"tool.proportion_tests.simulations[{i}].name", typ=str)
-        tea_tasting.utils.check_scalar(
-            sim["ratio"],
-            f"tool.proportion_tests.simulations[{i}].ratio",
-            typ=float | int,
-            gt=0,
-        )
-        tea_tasting.utils.check_scalar(
-            sim["prop"],
-            f"tool.proportion_tests.simulations[{i}].prop",
-            typ=float,
-            gt=0,
-            lt=1,
-        )
+        benchmark, "tool.proportion_tests.benchmark", typ=dict)
+    tea_tasting.utils.check_scalar(
+        benchmark["repeat"],
+        "tool.proportion_tests.benchmark.repeat",
+        typ=int,
+        gt=0,
+    )
+    tea_tasting.utils.check_scalar(
+        benchmark["number"],
+        "tool.proportion_tests.benchmark.number",
+        typ=int,
+        gt=0,
+    )
+    tea_tasting.utils.check_scalar(
+        benchmark["output"],
+        "tool.proportion_tests.benchmark.output",
+        typ=str,
+    )
 
     simulation = config["simulation"]
     tea_tasting.utils.check_scalar(
@@ -76,26 +75,30 @@ def load_config() -> dict[str, Any]:
         typ=str,
     )
 
-    benchmark = config["benchmark"]
+    options = simulation["options"]
     tea_tasting.utils.check_scalar(
-        benchmark, "tool.proportion_tests.benchmark", typ=dict)
-    tea_tasting.utils.check_scalar(
-        benchmark["repeat"],
-        "tool.proportion_tests.benchmark.repeat",
-        typ=int,
-        gt=0,
-    )
-    tea_tasting.utils.check_scalar(
-        benchmark["number"],
-        "tool.proportion_tests.benchmark.number",
-        typ=int,
-        gt=0,
-    )
-    tea_tasting.utils.check_scalar(
-        benchmark["output"],
-        "tool.proportion_tests.benchmark.output",
-        typ=str,
-    )
+        options, "tool.proportion_tests.simulation.options", typ=list)
+    for i, option in enumerate(options):
+        tea_tasting.utils.check_scalar(
+            option, f"tool.proportion_tests.simulation.options[{i}]", typ=dict)
+        tea_tasting.utils.check_scalar(
+            option["name"],
+            f"tool.proportion_tests.simulation.options[{i}].name",
+            typ=str,
+        )
+        tea_tasting.utils.check_scalar(
+            option["ratio"],
+            f"tool.proportion_tests.simulation.options[{i}].ratio",
+            typ=float | int,
+            gt=0,
+        )
+        tea_tasting.utils.check_scalar(
+            option["prop"],
+            f"tool.proportion_tests.simulation.options[{i}].prop",
+            typ=float,
+            gt=0,
+            lt=1,
+        )
 
     metrics = config["metrics"]
     tea_tasting.utils.check_scalar(metrics, "tool.proportion_tests.metrics", typ=list)
