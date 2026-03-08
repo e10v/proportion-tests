@@ -44,7 +44,7 @@ upgrade = "uv sync --all-groups --upgrade"
 
 [tool.proportion_tests]
 rng = 42
-n_obs = { small = 100, medium = 1000, large = 10_000 }
+sample = { small = 100, medium = 1000, large = 10_000 }
 
 [tool.proportion_tests.benchmark]
 repeat = 10  # Number of separate timing repeats

@@ -19,11 +19,11 @@ def load_config() -> dict[str, Any]:
     config = pyproject["tool"]["proportion_tests"]
     tea_tasting.utils.check_scalar(config["rng"], "tool.proportion_tests.rng", typ=int)
 
-    n_obs = config["n_obs"]
-    tea_tasting.utils.check_scalar(n_obs, "tool.proportion_tests.n_obs", typ=dict)
-    for key, val in n_obs.items():
+    sample = config["sample"]
+    tea_tasting.utils.check_scalar(sample, "tool.proportion_tests.sample", typ=dict)
+    for key, val in sample.items():
         tea_tasting.utils.check_scalar(
-            val, f"tool.proportion_tests.{key}", typ=int, gt=0)
+            val, f"tool.proportion_tests.sample.{key}", typ=int, gt=0)
 
     benchmark = config["benchmark"]
     tea_tasting.utils.check_scalar(
