@@ -47,8 +47,8 @@ rng = 42
 samples = { small = 100, medium = 1000, large = 10_000 }
 
 [tool.proportion_tests.benchmark]
-repeat = 2  # Number of separate timing repeats
-number = 5  # Number of times the statement is executed in one timing repeat
+repeat = 10  # Number of separate timing repeats
+number = 10  # Number of times the statement is executed in one timing repeat
 output = "reports/benchmark.md"
 
 [tool.proportion_tests.simulation]
