@@ -56,10 +56,10 @@ n_simulations = 10_000
 alpha = 0.05
 power = 0.8
 options = [
-    { name = "Balanced ratio, balanced proportion", ratio = 1, prop = 0.5 },
-    { name = "Balanced ratio, imbalanced proportion", ratio = 1, prop = 0.1 },
-    { name = "Imbalanced ratio, balanced proportion", ratio = 0.25, prop = 0.5 },
-    { name = "Imbalanced ratio, imbalanced proportion", ratio = 0.25, prop = 0.1 },
+    { name = "balanced ratio, balanced proportion", ratio = 1, prop = 0.5 },
+    { name = "balanced ratio, imbalanced proportion", ratio = 1, prop = 0.1 },
+    { name = "imbalanced ratio, balanced proportion", ratio = 0.25, prop = 0.5 },
+    { name = "imbalanced ratio, imbalanced proportion", ratio = 0.25, prop = 0.1 },
 ]
 output = "reports/simulation.md"
 

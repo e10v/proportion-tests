@@ -40,6 +40,12 @@ def pivot_dicts(
     return dicts
 
 
+def format_ci(ci: list[float]) -> str:
+    low = tea_tasting.utils.format_num(ci[0])
+    upp = tea_tasting.utils.format_num(ci[1])
+    return f"[{low}, {upp}]"
+
+
 def render_dict(
     dict_: dict[str, Any],
     keys: tuple[str, str] = ("parameter", "value"),
