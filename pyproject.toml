@@ -31,6 +31,9 @@ lines-after-imports = 2
 [tool.ruff.lint.pylint]
 max-args = 10
 
+[tool.tombi]
+schema.strict = false
+
 [tool.poe.tasks]
 markdownlint = 'markdownlint-cli2 "*.md"'
 reset = [
