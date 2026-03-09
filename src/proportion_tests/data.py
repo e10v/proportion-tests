@@ -1,13 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import numpy as np
 import tea_tasting.aggr
-
-
-if TYPE_CHECKING:
-    from typing import Any
 
 
 def make_data(
@@ -17,7 +11,7 @@ def make_data(
     ratio: float = 1,
     prop: float = 0.5,
     effect_size: float = 0,
-) -> dict[Any, tea_tasting.aggr.Aggregates]:
+) -> dict[int, tea_tasting.aggr.Aggregates]:
     rng = np.random.default_rng(rng)
     n0 = np.clip(rng.binomial(n=sample_size, p=1 / (1 + ratio)), 2, sample_size - 2)
     n1 = sample_size - n0

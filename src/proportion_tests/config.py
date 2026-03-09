@@ -133,15 +133,3 @@ def init_metric(path: str, **kwargs: dict[str, Any]) -> tea_tasting.metrics.Metr
     module = importlib.import_module(mod_name)
     metric = getattr(module, attr_name)
     return metric("value", **kwargs)
-
-
-def filter_metrics(
-    tests: list[dict[str, Any]],
-    key: str,
-    sample_size: int,
-) -> dict[str, tea_tasting.metrics.MetricBase]:
-    metrics = {}
-    for test in tests:
-        if test[key] >= sample_size:
-            metrics[test["name"]] = test["metric"]
-    return metrics
