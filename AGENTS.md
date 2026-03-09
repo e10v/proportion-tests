@@ -1,5 +1,19 @@
 # AGENTS
 
+## About the codebase
+
+- `src/proportion_tests/`: project code:
+    - `src/proportion_tests/simulation.py`: A/A and power simulations.
+    - `src/proportion_tests/benchmark.py`: execution time benchmarks.
+    - `src/proportion_tests/config.py`: config loader.
+    - `src/proportion_tests/data.py`: data generator.
+    - `src/proportion_tests/utils.py`: rendering and other helpers.
+- Configs are defined in `pyproject.toml` in the `[tool.tool.proportion_tests]` table.
+- Scripts, that are supposed to run from the project root:
+    - `uv run simulation`: simulates A/A and power experiment and creates a report in `reports/simulation.md`.
+    - `uv run benchmark`: run test analysis many times to estimate execution time and creates a report in `reports/benchmark.md`.
+    - Under any circumstances, never run these scripts yourself. They are time and resource expensive.
+
 ## Code style
 
 - Follow PEP 8.
