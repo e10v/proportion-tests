@@ -8,7 +8,7 @@
     - `src/proportion_tests/config.py`: config loader.
     - `src/proportion_tests/data.py`: data generator.
     - `src/proportion_tests/utils.py`: rendering and other helpers.
-- Configs are defined in `pyproject.toml` in the `[tool.proportion_tests]` table.
+- Configs are defined in `proportion-tests.toml`.
 - Scripts, that are supposed to run from the project root:
     - `uv run simulation`: simulates A/A and power experiment and creates a report in `reports/simulation.md`.
     - `uv run benchmark`: run test analysis many times to estimate execution time and creates a report in `reports/benchmark.md`.

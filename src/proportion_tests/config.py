@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import importlib
 import tomllib
 from typing import TYPE_CHECKING
@@ -14,10 +15,19 @@ if TYPE_CHECKING:
 
 
 def load_config() -> dict[str, Any]:
-    with open("pyproject.toml", "rb") as f:
-        pyproject = tomllib.load(f)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-c",
+        "--config",
+        dest="config",
+        type=str,
+        default="proportion-tests.toml",
+        help="Config file",
+        required=False,
+    )
+    with open(parser.parse_args().config, "rb") as f:
+        config = tomllib.load(f)
 
-    config = pyproject["tool"]["proportion_tests"]
     tea_tasting.utils.check_scalar(config["rng"], "tool.proportion_tests.rng", typ=int)
 
     samples = config["samples"]

@@ -96,7 +96,7 @@ Run the benchmark:
 uv run benchmark
 ```
 
-Optionally, you can change parameters in the configuration file (`[tool.proportion_tests]` in `pyproject.toml`).
+Optionally, you can change parameters in the configuration file (`proportion-tests.toml`).
 
 ## Discussion of the results
 
