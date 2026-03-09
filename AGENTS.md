@@ -1,12 +1,5 @@
 # AGENTS
 
-## Project structure
-
-- Statistical simulations:
-    - `simulation.py`: main simulation engine and CLI entrypoint.
-    - `simulation.toml`: runtime parameters (seed, sample sizes, alpha/power, output path).
-    - `simulation.md`: generated results report (markdown tables).
-
 ## Code style
 
 - Follow PEP 8.
