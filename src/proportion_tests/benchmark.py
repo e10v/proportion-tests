@@ -21,7 +21,7 @@ def main() -> None:
     config = proportion_tests.config.load_config()
     generate_benchmark_report(
         rng=config["rng"],
-        sample=config["sample"],
+        samples=config["samples"],
         tests=config["tests"],
         **config["benchmark"],
     )
@@ -29,15 +29,15 @@ def main() -> None:
 
 def generate_benchmark_report(
     rng: int,
-    sample: dict[str, int],
+    samples: dict[str, int],
     tests: list[dict[str, Any]],
     repeat: int,
     number: int,
     output: str,
 ) -> None:
     results = {}
-    for sample_key, sample_size in sample.items():
-        tqdm.tqdm.write(f"{sample_key} sample: {sample_size}")
+    for sample_name, sample_size in samples.items():
+        tqdm.tqdm.write(f"{sample_name} sample: {sample_size}")
         data = proportion_tests.data.make_data(rng, sample_size=sample_size)
         metrics = proportion_tests.utils.filter_metrics(
             tests,
@@ -45,7 +45,7 @@ def generate_benchmark_report(
             sample_size=sample_size,
         )
         result = run_benchmark(data, metrics, repeat=repeat, number=number)
-        results[f"{sample_key} sample ({sample_size})"] = result
+        results[f"{sample_name} sample ({sample_size})"] = result
     dicts = proportion_tests.utils.pivot_dicts(results, "test")
     keys = ("test", *results.keys())
     report = (
