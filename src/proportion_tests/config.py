@@ -98,7 +98,7 @@ def load_config() -> dict[str, Any]:
             f"tool.proportion_tests.simulation.options[{i}].prop",
             typ=float,
             gt=0,
-            lt=1,
+            le=0.5,
         )
 
     tests = config["tests"]
