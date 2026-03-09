@@ -15,6 +15,8 @@
 | sample size                           |   100 |
 | treatment to control allocation ratio |     1 |
 | proportion in control                 |   0.5 |
+| effect size (in power)                | 0.269 |
+| relative effect size (in power)       |  0.54 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -42,6 +44,8 @@
 | sample size                           |   100 |
 | treatment to control allocation ratio |     1 |
 | proportion in control                 |   0.1 |
+| effect size (in power)                | 0.228 |
+| relative effect size (in power)       |  2.28 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -69,6 +73,8 @@
 | sample size                           |   100 |
 | treatment to control allocation ratio |  0.25 |
 | proportion in control                 |   0.5 |
+| effect size (in power)                | 0.347 |
+| relative effect size (in power)       |  0.69 |
 
 | test                 | power |       power ci | type I error |   type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ----------------: |
@@ -96,6 +102,8 @@
 | sample size                           |   100 |
 | treatment to control allocation ratio |  0.25 |
 | proportion in control                 |   0.1 |
+| effect size (in power)                | 0.249 |
+| relative effect size (in power)       |  2.49 |
 
 | test                 | power |       power ci | type I error |   type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ----------------: |
@@ -125,6 +133,8 @@
 | sample size                           |  1000 |
 | treatment to control allocation ratio |     1 |
 | proportion in control                 |   0.5 |
+| effect size (in power)                | 0.088 |
+| relative effect size (in power)       |  0.18 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -149,6 +159,8 @@
 | sample size                           |  1000 |
 | treatment to control allocation ratio |     1 |
 | proportion in control                 |   0.1 |
+| effect size (in power)                | 0.059 |
+| relative effect size (in power)       |  0.59 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -173,6 +185,8 @@
 | sample size                           |  1000 |
 | treatment to control allocation ratio |  0.25 |
 | proportion in control                 |   0.5 |
+| effect size (in power)                | 0.111 |
+| relative effect size (in power)       |  0.22 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -197,6 +211,8 @@
 | sample size                           |  1000 |
 | treatment to control allocation ratio |  0.25 |
 | proportion in control                 |   0.1 |
+| effect size (in power)                |  0.07 |
+| relative effect size (in power)       |   0.7 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -223,6 +239,8 @@
 | sample size                           | 10000 |
 | treatment to control allocation ratio |     1 |
 | proportion in control                 |   0.5 |
+| effect size (in power)                | 0.028 |
+| relative effect size (in power)       |  0.06 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -234,6 +252,7 @@
 | pearson              | 0.797 | [0.789, 0.805] |       0.0465 | [0.0425, 0.0509] |
 | mean t-test          | 0.797 | [0.789, 0.805] |       0.0465 | [0.0425, 0.0509] |
 | mean t-test unpooled | 0.797 | [0.789, 0.805] |       0.0465 | [0.0425, 0.0509] |
+| fisher               | 0.797 | [0.789, 0.804] |       0.0457 | [0.0417, 0.0500] |
 | norm cc              | 0.791 | [0.783, 0.799] |       0.0447 | [0.0408, 0.0490] |
 | pearson cc           | 0.791 | [0.783, 0.799] |       0.0447 | [0.0408, 0.0490] |
 | log-likelihood cc    | 0.791 | [0.783, 0.799] |       0.0448 | [0.0409, 0.0491] |
@@ -246,6 +265,8 @@
 | sample size                           | 10000 |
 | treatment to control allocation ratio |     1 |
 | proportion in control                 |   0.1 |
+| effect size (in power)                | 0.017 |
+| relative effect size (in power)       |  0.17 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -257,6 +278,7 @@
 | norm                 | 0.797 | [0.789, 0.805] |       0.0493 | [0.0452, 0.0538] |
 | pearson              | 0.797 | [0.789, 0.805] |       0.0493 | [0.0452, 0.0538] |
 | mean t-test unpooled | 0.797 | [0.789, 0.805] |       0.0492 | [0.0451, 0.0537] |
+| fisher               | 0.793 | [0.785, 0.801] |       0.0477 | [0.0436, 0.0521] |
 | log-likelihood cc    | 0.788 | [0.780, 0.796] |       0.0459 | [0.0419, 0.0502] |
 | norm unpooled cc     | 0.788 | [0.780, 0.796] |       0.0459 | [0.0419, 0.0502] |
 | norm cc              | 0.788 | [0.780, 0.796] |       0.0458 | [0.0418, 0.0501] |
@@ -269,6 +291,8 @@
 | sample size                           | 10000 |
 | treatment to control allocation ratio |  0.25 |
 | proportion in control                 |   0.5 |
+| effect size (in power)                | 0.035 |
+| relative effect size (in power)       |  0.07 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -280,6 +304,7 @@
 | norm                 | 0.805 | [0.797, 0.813] |       0.0519 | [0.0477, 0.0565] |
 | pearson              | 0.805 | [0.797, 0.813] |       0.0519 | [0.0477, 0.0565] |
 | mean t-test          | 0.805 | [0.797, 0.813] |       0.0518 | [0.0476, 0.0564] |
+| fisher               | 0.802 | [0.794, 0.810] |       0.0504 | [0.0462, 0.0549] |
 | norm unpooled cc     | 0.799 | [0.791, 0.807] |       0.0491 | [0.0450, 0.0536] |
 | norm cc              | 0.799 | [0.791, 0.807] |       0.0486 | [0.0445, 0.0530] |
 | pearson cc           | 0.799 | [0.791, 0.807] |       0.0486 | [0.0445, 0.0530] |
@@ -292,6 +317,8 @@
 | sample size                           | 10000 |
 | treatment to control allocation ratio |  0.25 |
 | proportion in control                 |   0.1 |
+| effect size (in power)                | 0.021 |
+| relative effect size (in power)       |  0.21 |
 
 | test                 | power |       power ci | type I error |  type I error ci |
 | :------------------- | ----: | -------------: | -----------: | ---------------: |
@@ -300,6 +327,7 @@
 | norm                 | 0.793 | [0.785, 0.801] |       0.0527 | [0.0484, 0.0573] |
 | pearson              | 0.793 | [0.785, 0.801] |       0.0527 | [0.0484, 0.0573] |
 | log-likelihood       | 0.787 | [0.779, 0.795] |       0.0526 | [0.0483, 0.0572] |
+| fisher               | 0.786 | [0.778, 0.794] |       0.0497 | [0.0456, 0.0542] |
 | norm cc              | 0.782 | [0.774, 0.790] |       0.0470 | [0.0430, 0.0514] |
 | pearson cc           | 0.782 | [0.774, 0.790] |       0.0470 | [0.0430, 0.0514] |
 | log-likelihood cc    | 0.775 | [0.766, 0.783] |       0.0481 | [0.0440, 0.0525] |

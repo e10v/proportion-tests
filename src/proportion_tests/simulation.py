@@ -69,7 +69,7 @@ def generate_simulation_report(
         for option in options:
             tqdm.tqdm.write(f"  option: {option["name"]}")
             report.append(f"### {option["name"].capitalize()}")
-            aa_result, power_result = (
+            (aa_result, _), (power_result, effect_size) = (
                 run_simulation(
                     rng.spawn(1)[0],
                     metrics,
@@ -88,6 +88,9 @@ def generate_simulation_report(
                 "sample size": sample_size,
                 "treatment to control allocation ratio": option["ratio"],
                 "proportion in control": option["prop"],
+                "effect size (in power)": round(effect_size, 3),
+                "relative effect size (in power)":
+                    round(effect_size / option["prop"], 2),
             }))
 
             report.append(proportion_tests.utils.render_dicts(
@@ -122,7 +125,7 @@ def run_simulation(
     ratio: float,
     prop: float,
     is_aa: bool,
-) -> pl.DataFrame:
+) -> tuple[pl.DataFrame, float]:
     rng = np.random.default_rng(rng)
     if is_aa:
         effect_size = 0
@@ -141,7 +144,7 @@ def run_simulation(
         rate_col = "power"
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        result = tt.Experiment(metrics).simulate(
+        simulation_result = tt.Experiment(metrics).simulate(
             functools.partial(
                 proportion_tests.data.make_data,
                 sample_size=sample_size,
@@ -158,8 +161,8 @@ def run_simulation(
             ),
         )
 
-    return (
-        result.to_polars().lazy()
+    result: pl.DataFrame = (
+        simulation_result.to_polars().lazy()
         .filter(pl.col("pvalue").is_not_nan())
         .group_by("metric")
         .agg(
@@ -173,8 +176,9 @@ def run_simulation(
                 .map_elements(calc_binom_ci, return_dtype=pl.List(pl.Float64))
                 .alias(rate_col + " ci"),
         )
-        .collect()  # ty:ignore[invalid-return-type]
-    )
+        .collect()
+    )  # ty:ignore[invalid-assignment]
+    return result, effect_size
 
 
 def calc_effect_size(

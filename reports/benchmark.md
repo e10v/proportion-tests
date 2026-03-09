@@ -1,14 +1,19 @@
 # Benchmark
 
+| parameter                 | value |
+| :------------------------ | ----: |
+| number of repeats         |    10 |
+| number of runs per repeat |    10 |
+
 Execution time, ms
 
 | test           | small sample (100) | medium sample (1000) | large sample (10000) |
 | :------------- | -----------------: | -------------------: | -------------------: |
-| barnard        |               5.73 |                  537 |                    - |
-| boschloo       |               6.04 |                 2106 |                    - |
-| fisher         |              0.245 |                0.364 |                0.717 |
-| log-likelihood |              0.115 |                0.124 |                0.115 |
-| pearson        |              0.116 |                0.114 |                0.115 |
-| norm           |              0.432 |                0.442 |                0.437 |
-| mean z-test    |              0.478 |                0.482 |                0.463 |
-| mean t-test    |              0.464 |                0.463 |                0.463 |
+| barnard        |               5.98 |                  589 |                    - |
+| boschloo       |               6.33 |                 2148 |                    - |
+| fisher         |              0.258 |                0.379 |                0.766 |
+| log-likelihood |              0.121 |                0.128 |                0.119 |
+| pearson        |              0.120 |                0.121 |                0.119 |
+| norm           |              0.457 |                0.453 |                0.479 |
+| mean z-test    |              0.507 |                0.493 |                0.505 |
+| mean t-test    |              0.500 |                0.501 |                0.488 |

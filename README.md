@@ -45,7 +45,7 @@ Exact tests in simulations:
 | boschloo         | Boschloo's     | -        |
 | fisher           | Fisher's       | -        |
 
-Barnard's exact tests uses the Wald statistic. Boschloo's exact test is also known as Barnard's exact test with p-value of Fisher's exact test as a statistic. Both Barnard's and Boschloo's tests are computationally expensive and tested only with small samples.
+Barnard's exact tests uses the Wald statistic. Boschloo's exact test is also known as Barnard's exact test with p-value of Fisher's exact test as a statistic. Both Barnard's and Boschloo's tests are computationally expensive and simulated only with small samples.
 
 Asymptotic tests in simulations:
 

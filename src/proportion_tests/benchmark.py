@@ -55,8 +55,10 @@ def generate_benchmark_report(
         results[f"{sample_name} sample ({sample_size})"] = result
     dicts = proportion_tests.utils.pivot_dicts(results, "test")
     keys = ("test", *results.keys())
+    params = {"number of repeats": repeat, "number of runs per repeat": number}
     report = (
         "# Benchmark",
+        proportion_tests.utils.render_dict(params),
         "Execution time, ms",
         proportion_tests.utils.render_dicts(dicts, keys),
     )

@@ -43,8 +43,8 @@ max_benchmark_size = 1000
 name = "fisher"
 path = "tea_tasting.Proportion"
 kwargs = { method = "fisher" }
-max_simulation_size = 1000
-max_benchmark_size = 10000
+max_simulation_size = 10000
+max_benchmark_size = 100000
 
 [[tests]]
 name = "log-likelihood"
