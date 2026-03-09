@@ -4,12 +4,13 @@ import importlib
 import tomllib
 from typing import TYPE_CHECKING
 
-import tea_tasting.metrics
 import tea_tasting.utils
 
 
 if TYPE_CHECKING:
     from typing import Any
+
+    import tea_tasting.metrics  # noqa: TC004
 
 
 def load_config() -> dict[str, Any]:
