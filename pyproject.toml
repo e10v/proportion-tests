@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Comparison of two-sample proportion tests"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["polars", "tea_tasting>=1.13", "tqdm"]
+dependencies = ["numpy", "polars", "scipy", "tea_tasting>=1.13", "tqdm"]
 
 [project.scripts]
 benchmark = "proportion_tests.benchmark:main"
