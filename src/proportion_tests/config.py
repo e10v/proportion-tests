@@ -24,7 +24,7 @@ def load_config() -> dict[str, Any]:
     tea_tasting.utils.check_scalar(samples, "tool.proportion_tests.samples", typ=dict)
     for key, val in samples.items():
         tea_tasting.utils.check_scalar(
-            val, f"tool.proportion_tests.samples.{key}", typ=int, gt=0)
+            val, f"tool.proportion_tests.samples.{key}", typ=int, ge=10)
 
     benchmark = config["benchmark"]
     tea_tasting.utils.check_scalar(
@@ -102,25 +102,25 @@ def load_config() -> dict[str, Any]:
         )
 
     tests = config["tests"]
-    tea_tasting.utils.check_scalar(tests, "tool.proportion_tests.metrics", typ=list)
+    tea_tasting.utils.check_scalar(tests, "tool.proportion_tests.tests", typ=list)
     for i, test in enumerate(tests):
         tea_tasting.utils.check_scalar(
-            test, f"tool.proportion_tests.tests{i}]", typ=dict)
+            test, f"tool.proportion_tests.tests[{i}]", typ=dict)
         tea_tasting.utils.check_scalar(
-            test["name"], f"tool.proportion_tests.tests{i}].name", typ=str)
+            test["name"], f"tool.proportion_tests.tests[{i}].name", typ=str)
         tea_tasting.utils.check_scalar(
-            test["path"], f"tool.proportion_tests.tests{i}].path", typ=str)
+            test["path"], f"tool.proportion_tests.tests[{i}].path", typ=str)
         tea_tasting.utils.check_scalar(
-            test["kwargs"], f"tool.proportion_tests.tests{i}].kwargs", typ=dict)
+            test["kwargs"], f"tool.proportion_tests.tests[{i}].kwargs", typ=dict)
         tea_tasting.utils.check_scalar(
             test["max_simulation_size"],
-            f"tool.proportion_tests.tests{i}].max_simulation_size",
+            f"tool.proportion_tests.tests[{i}].max_simulation_size",
             typ=int | float,
             ge=0,
         )
         tea_tasting.utils.check_scalar(
             test["max_benchmark_size"],
-            f"tool.proportion_tests.tests{i}].max_benchmark_size",
+            f"tool.proportion_tests.tests[{i}].max_benchmark_size",
             typ=int | float,
             ge=0,
         )
