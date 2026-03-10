@@ -38,31 +38,31 @@ The results are saved in a file (`reports/simulation.md`).
 
 Exact tests in simulations:
 
-| test             | canonical name | variance |
-| :--------------- | :------------- | :------- |
-| barnard          | Barnard's      | pooled   |
-| barnard unpooled | Barnard's      | unpooled |
-| boschloo         | Boschloo's     | -        |
-| fisher           | Fisher's       | -        |
+| test               | variance |
+| :----------------- | :------- |
+| Barnard            | pooled   |
+| Barnard (unpooled) | unpooled |
+| Boschloo           | -        |
+| Fisher             | -        |
 
 Barnard's exact tests uses the Wald statistic. Boschloo's exact test is also known as Barnard's exact test with p-value of Fisher's exact test as a statistic. Both Barnard's and Boschloo's tests are computationally expensive and simulated only with small samples.
 
 Asymptotic tests in simulations:
 
-| test                 | canonical name        | variance | continuity correction |
-| :------------------- | :-------------------- | :------- | :-------------------- |
-| log-likelihood       | G-test                | -        | no                    |
-| log-likelihood cc    | G-test                | -        | yes                   |
-| pearson              | Pearson's chi-squared | -        | no                    |
-| pearson cc           | Pearson's chi-squared | -        | yes                   |
-| norm                 | Proportion Z-test     | pooled   | no                    |
-| norm unpooled        | Proportion Z-test     | unpooled | no                    |
-| norm cc              | Proportion Z-test     | pooled   | yes                   |
-| norm unpooled cc     | Proportion Z-test     | unpooled | yes                   |
-| mean z-test          | Z-test of means       | pooled   | no                    |
-| mean z-test unpooled | Z-test of means       | unpooled | no                    |
-| mean t-test          | Student's t-test      | pooled   | no                    |
-| mean t-test unpooled | Welch's t-test        | unpooled | no                    |
+| test                                 | variance | continuity correction |
+| :----------------------------------- | :------- | :-------------------- |
+| G-test                               | -        | no                    |
+| G-test (cc)                          | -        | yes                   |
+| Pearson's chi-squared                | -        | no                    |
+| Pearson's chi-squared (cc)           | -        | yes                   |
+| Z-test of proportions                | pooled   | no                    |
+| Z-test of proportions (unpooled)     | unpooled | no                    |
+| Z-test of proportions (cc)           | pooled   | yes                   |
+| Z-test of proportions (unpooled, cc) | unpooled | yes                   |
+| Z-test of means                      | pooled   | no                    |
+| Z-test of means (unpooled)           | unpooled | no                    |
+| Student's t-test                     | pooled   | no                    |
+| Welch's t-test                       | unpooled | no                    |
 
 ## Benchmark
 
@@ -75,7 +75,7 @@ TODO
 Clone the repository and change the directory:
 
 ```bash
-git clone git@github.com:e10v/proportion_tests.git && cd proportion_tests
+git clone git@github.com:e10v/proportion-tests.git && cd proportion-tests
 ```
 
 Install dependencies:

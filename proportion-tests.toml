@@ -19,112 +19,112 @@ number = 10  # Number of times the statement is executed in one timing repeat
 output = "reports/benchmark.md"
 
 [[tests]]
-name = "barnard"
+name = "Barnard"
 path = "tea_tasting.Proportion"
 kwargs = { method = "barnard", equal_var = true }
 max_simulation_size = 100
 max_benchmark_size = 1000
 
 [[tests]]
-name = "barnard unpooled"
+name = "Barnard (unpooled)"
 path = "tea_tasting.Proportion"
 kwargs = { method = "barnard", equal_var = false }
 max_simulation_size = 100
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "boschloo"
+name = "Boschloo"
 path = "tea_tasting.Proportion"
 kwargs = { method = "boschloo" }
 max_simulation_size = 100
 max_benchmark_size = 1000
 
 [[tests]]
-name = "fisher"
+name = "Fisher"
 path = "tea_tasting.Proportion"
 kwargs = { method = "fisher" }
 max_simulation_size = 10000
 max_benchmark_size = 100000
 
 [[tests]]
-name = "log-likelihood"
+name = "G-test"
 path = "tea_tasting.Proportion"
 kwargs = { method = "log-likelihood", correction = false }
 max_simulation_size = inf  # No limit
 max_benchmark_size = inf  # No limit
 
 [[tests]]
-name = "log-likelihood cc"
+name = "G-test (cc)"
 path = "tea_tasting.Proportion"
 kwargs = { method = "log-likelihood", correction = true }
 max_simulation_size = inf  # No limit
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "pearson"
+name = "Pearson's chi-squared"
 path = "tea_tasting.Proportion"
 kwargs = { method = "pearson", correction = false }
 max_simulation_size = inf  # No limit
 max_benchmark_size = inf  # No limit
 
 [[tests]]
-name = "pearson cc"
+name = "Pearson's chi-squared (cc)"
 path = "tea_tasting.Proportion"
 kwargs = { method = "pearson", correction = true }
 max_simulation_size = inf  # No limit
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "norm"
+name = "Z-test of proportions"
 path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = false, equal_var = true }
 max_simulation_size = inf  # No limit
 max_benchmark_size = inf  # No limit
 
 [[tests]]
-name = "norm unpooled"
+name = "Z-test of proportions (unpooled)"
 path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = false, equal_var = false }
 max_simulation_size = inf  # No limit
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "norm cc"
+name = "Z-test of proportions (cc)"
 path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = true, equal_var = true }
 max_simulation_size = inf  # No limit
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "norm unpooled cc"
+name = "Z-test of proportions (unpooled, cc)"
 path = "tea_tasting.Proportion"
 kwargs = { method = "norm", correction = true, equal_var = false }
 max_simulation_size = inf  # No limit
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "mean z-test"
+name = "Z-test of means"
 path = "tea_tasting.Mean"
 kwargs = { use_t = false, equal_var = true }
 max_simulation_size = inf  # No limit
 max_benchmark_size = inf  # No limit
 
 [[tests]]
-name = "mean z-test unpooled"
+name = "Z-test of means (unpooled)"
 path = "tea_tasting.Mean"
 kwargs = { use_t = false, equal_var = false }
 max_simulation_size = inf  # No limit
 max_benchmark_size = 0  # Exclude from benchmark
 
 [[tests]]
-name = "mean t-test"
+name = "Student's t-test"
 path = "tea_tasting.Mean"
 kwargs = { use_t = true, equal_var = true }
 max_simulation_size = inf  # No limit
 max_benchmark_size = inf  # No limit
 
 [[tests]]
-name = "mean t-test unpooled"
+name = "Welch's t-test"
 path = "tea_tasting.Mean"
 kwargs = { use_t = true, equal_var = false }
 max_simulation_size = inf  # No limit
