@@ -23,7 +23,7 @@ The code in this repository simulates multiple experiments, estimates both type 
 
 The simulations are performed for each combination of factors:
 
-- Number of observations: small (`100`), medium (`1000`) and large (`10_000`).
+- Sample size: small (`100`), medium (`1000`) and large (`10_000`).
 - Treatment to control allocation ratio: balanced (1:1 treatment to control) and imbalanced (1:4 treatment to control).
 - Proportion value: balanced (`0.5`) and imbalanced (`0.1`).
 
@@ -66,7 +66,21 @@ Asymptotic tests in simulations:
 
 ## Benchmark
 
-TODO
+The code in this repository benchmarks execution time of multiple tests and saves the results.
+
+The benchmark is performed for each sample size:
+
+- Small: `100`.
+- Medium: `1000`.
+- Large: `10_000`.
+
+For each sample size, a synthetic dataset is generated. Each test is then executed multiple times on the same data. Execution time is estimated in milliseconds per run by taking the fastest result across repeated timings and dividing it by the number of runs in each repeat. By default, the benchmark uses `10` timing repeats with `10` runs in each repeat.
+
+The results are saved in a file (`reports/benchmark.md`).
+
+Only one variant of each test is measured because there is no meaningful performance difference between a test with pooled vs. unpooled variance or with vs. without continuity correction.
+
+The execution time of Barnard's and Boschloo's tests is estimated only for small and medium samples.
 
 ## How to reproduce the results
 
