@@ -75,7 +75,7 @@ def run_benchmark(
     number: int,
 ) -> dict[str, float]:
     rng = np.random.default_rng(rng)
-    data = proportion_tests.data.make_data(rng.spawn(1)[0], sample_size=sample_size)
+    data = proportion_tests.data.make_data(rng, sample_size=sample_size)
     result = {}
     for name, metric in metrics.items():
         tqdm.tqdm.write(f"  metric: {name}")
