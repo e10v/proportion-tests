@@ -35,6 +35,9 @@ max-args = 10
 schema.strict = false
 
 [tool.poe.tasks]
+ci.sequence = ["markdownlint", "lint", "type"]
+ci.ignore_fail = true
+lint = "ruff check"
 markdownlint = 'markdownlint-cli2 "*.md"'
 reset = [
     { cmd = "git fetch origin main" },
@@ -42,4 +45,5 @@ reset = [
     { cmd = "git reset --hard origin/main" },
     { cmd = "git push --force-with-lease" },
 ]
+type = "ty check"
 upgrade = "uv sync --all-groups --upgrade"
