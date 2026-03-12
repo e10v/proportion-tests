@@ -94,7 +94,7 @@ Only one variant of each test is measured because pooled vs. unpooled variance a
 
 The execution time of Barnard's and Boschloo's tests is estimated only for small and medium samples.
 
-*Note: The execution time of Student's t-test, the z-test of means, and the z-test of proportions includes confidence-interval calculation.*
+*Note: The execution time of Student's t-test, the z-test of means, and the z-test of proportions includes confidence interval calculation.*
 
 ## How to reproduce the results
 
