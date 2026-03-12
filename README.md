@@ -156,7 +156,7 @@ With medium and large samples:
 
 ### Benchmark
 
-For the aggregated inputs used in this benchmark, all asymptotic tests run in O(1) time with respect to sample size. The execution times for Student's t-test, the z-test of means, and the z-test of proportions include confidence-interval calculation, which helps explain why they are slower than the G-test and Pearson's chi-squared test.
+For the aggregated inputs used in this benchmark, all asymptotic tests run in O(1) time with respect to sample size. The execution times for Student's t-test, the z-test of means, and the z-test of proportions include confidence interval calculation, which helps explain why they are slower than the G-test and Pearson's chi-squared test.
 
 Fisher is the fastest exact test in this benchmark, and its measured runtime grows much more slowly than the runtimes of Barnard's and Boschloo's tests.
 
