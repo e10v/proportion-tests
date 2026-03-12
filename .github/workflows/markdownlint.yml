@@ -3,12 +3,14 @@ on:
   pull_request:
     paths:
       - '*.md'
+      - 'reports/*.md'
       - '.markdownlint.yml'
       - '.github/workflows/markdownlint.yml'
   push:
     branches: [main]
     paths:
       - '*.md'
+      - 'reports/*.md'
       - '.markdownlint.yml'
       - '.github/workflows/markdownlint.yml'
   workflow_dispatch:
@@ -23,3 +25,4 @@ jobs:
         with:
           globs: |
             *.md
+            reports/*.md
