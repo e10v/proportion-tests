@@ -157,7 +157,7 @@ requires-dist = [
     { name = "numpy" },
     { name = "polars" },
     { name = "scipy" },
-    { name = "tea-tasting", specifier = ">=1.13" },
+    { name = "tea-tasting" },
     { name = "tqdm" },
 ]
 

@@ -2,9 +2,12 @@
 name = "proportion-tests"
 version = "1.0.0"
 description = "Comparison of two-sample proportion tests"
+authors = [
+    { name = "Evgeny Ivanov", email = "14168452+e10v@users.noreply.github.com" }
+]
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["numpy", "polars", "scipy", "tea_tasting>=1.13", "tqdm"]
+dependencies = ["numpy", "polars", "scipy", "tea_tasting", "tqdm"]
 
 [project.scripts]
 benchmark = "proportion_tests.benchmark:main"
@@ -21,7 +24,7 @@ build-backend = "uv_build"
 extend-select = [
     "A", "ANN", "ARG", "B", "C4", "C90", "COM", "E", "F", "ERA", "FA", "FLY", "FURB",
     "I", "ICN", "INP", "INT", "ISC", "N", "NPY", "PERF", "PGH", "PIE", "PL", "Q", "RET",
-    "RSE", "RUF", "S", "SIM", "SLF", "TC", "TID", "TRY", "UP", "W",
+    "RSE", "RUF", "S", "SIM", "SLF", "T20", "TC", "TID", "TRY", "UP", "W",
 ]
 
 [tool.ruff.lint.isort]
@@ -35,10 +38,10 @@ max-args = 10
 schema.strict = false
 
 [tool.poe.tasks]
-ci.sequence = ["markdownlint", "lint", "type"]
+ci.sequence = ["md", "lint", "type"]
 ci.ignore_fail = true
 lint = "ruff check"
-markdownlint = 'markdownlint-cli2 "*.md"'
+md = 'markdownlint-cli2 "*.md" "reports/*.md"'
 reset = [
     { cmd = "git fetch origin main" },
     { cmd = "git switch dev" },
